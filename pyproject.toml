@@ -10,6 +10,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.10"
 isort = "^6.1.0"
+ruff = "^0.14.0"
 
 [tool.poetry.dev-dependencies]
 
