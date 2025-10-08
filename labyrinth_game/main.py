@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+from labyrinth_game.schemas.game_state import GameState
+
 
 def main():
-    print("Первая попытка запустить проект")
+    game_state = GameState()
+
 
 if __name__ == '__main__':
     main()
