@@ -1,4 +1,8 @@
 from labyrinth_game.schemas.room import Rooms, RoomSchema, Directions
+from enum import Enum
+
+class Commamds(Enum):
+    solve = "solve"
 
 # список всех комнат:
 ROOMS: dict[Rooms, RoomSchema] = {
