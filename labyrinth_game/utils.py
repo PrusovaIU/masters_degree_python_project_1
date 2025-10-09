@@ -26,9 +26,3 @@ def describe_current_room(game_state: GameState) -> None:
         info += (f"Кажется, здесь есть загадка "
                  f"(используйте команду {Commands.solve.name}).")
     print(f"Вы находитесь в {current_room.name}")
-
-
-def finish_game(game_state: GameState) -> None:
-    to_exit = input("Вы хотите выйти из игры? (да/нет): ")
-    if to_exit == "да":
-        raise StopGameException

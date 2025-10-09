@@ -17,3 +17,13 @@ class GameState(NamedTuple):
     current_room: Rooms
     game_over: bool
     steps_taken: int
+
+
+def initial_state() -> GameState:
+    player = Player(inventory=[])
+    return GameState(
+        player=player,
+        current_room=Rooms.entrance,
+        game_over=False,
+        steps_taken=0
+    )

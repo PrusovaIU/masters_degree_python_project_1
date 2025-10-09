@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Optional, NamedTuple
+from typing import NamedTuple
 
 
 class Rooms(Enum):
@@ -37,4 +37,4 @@ class RoomSchema(NamedTuple):
     description: str
     exits: dict[Directions, Rooms]
     items: list[str]
-    puzzle: Optional[tuple[str, str]]
+    puzzle: tuple[str, str] | None
