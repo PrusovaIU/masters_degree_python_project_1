@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Callable
 
 from labyrinth_game.schemas.game_state import GameState
+from labyrinth_game.schemas.room import Directions, Rooms
 
 
 class Commands(Enum):
@@ -23,6 +24,10 @@ def _show_inventory(game_state: GameState) -> None:
         print("Инвентарь пуст")
 
 
+# def move_player(game_state: GameState, direction: str) -> None:
+
+
+
 def _exit(game_state: GameState) -> None:
     """
     Обработчик команды выхода из игры.
@@ -41,18 +46,24 @@ def _exit(game_state: GameState) -> None:
             print("Некорректный ввод!")
 
 
-COMMAND_HANDLERS: dict[str, Callable[[GameState], None]] = {
-    Commands.exit.value: _exit
+COMMAND_HANDLERS: dict[Commands, Callable[[GameState], None]] = {
+    Commands.exit: _exit
 }
 
 def get_input(game_state: GameState, promt: str="> ") -> None:
+    """
+    Функция для получения ввода пользователя.
+
+    :param game_state: текущее состояние игры.
+    :param promt: строка с просьбой ввести команду.
+    :return: None.
+    """
     try:
-        command: str = input(promt)
-        command_handler: Callable[[GameState], None] = (
-            COMMAND_HANDLERS.get(command, None))
-        if not command_handler:
-            print("Некорректная команда!")
-            return None
+        command = Commands(input(promt))
+        command_handler: Callable[[GameState], None] = \
+            COMMAND_HANDLERS[command]
         command_handler(game_state)
+    except ValueError:
+        print("Некорректная команда")
     except (KeyboardInterrupt, EOFError):
         game_state.game_over = True

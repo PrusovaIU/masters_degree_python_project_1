@@ -7,7 +7,7 @@ class Rooms(Enum):
     Список названий комнат
     """
     entrance = "entrance"
-    hall = "hall",
+    hall = "hall"
     trap_room = "trap_room"
     library = "library"
     armory = "armory"
