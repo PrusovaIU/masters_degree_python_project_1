@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import NamedTuple
+from dataclasses import dataclass
 
 
 class Rooms(Enum):
@@ -30,7 +30,8 @@ class Directions(Enum):
     down = "down"
 
 
-class RoomSchema(NamedTuple):
+@dataclass
+class RoomSchema:
     """
     Описание комнаты
     """

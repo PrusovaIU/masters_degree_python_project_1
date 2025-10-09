@@ -1,5 +1,6 @@
-from .room import Rooms
+from .room import Rooms, RoomSchema
 from dataclasses import dataclass
+from labyrinth_game.constants import ROOMS
 
 
 @dataclass
@@ -29,3 +30,14 @@ def initial_state() -> GameState:
         game_over=False,
         steps_taken=0
     )
+
+
+def get_room(game_state: GameState) -> RoomSchema:
+    """
+    Получить текущую комнату из состояния игры.
+
+    :param game_state: текущее состояние игры.
+    :return: описание текущей комнаты.
+    """
+    current_room_name: Rooms = game_state.current_room
+    return ROOMS[current_room_name]

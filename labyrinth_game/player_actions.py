@@ -1,8 +1,9 @@
 from enum import Enum
 from typing import Callable
 
-from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.schemas.room import Directions, Rooms
+from labyrinth_game.schemas.game_state import GameState, get_room
+from labyrinth_game.schemas.room import Directions, RoomSchema, Rooms
+from labyrinth_game.constants import ROOMS
 
 
 class Commands(Enum):
@@ -19,13 +20,30 @@ def _show_inventory(game_state: GameState) -> None:
     """
     if game_state.player.inventory:
         objects = "\n\t".join(game_state.player.inventory)
-        print(f"В вашем иневентаре:{objects}")
+        print(f"В вашем инвентаре:{objects}")
     else:
         print("Инвентарь пуст")
 
 
-# def move_player(game_state: GameState, direction: str) -> None:
+def move_player(
+        game_state: GameState,
+        direction: Directions
+) -> None:
+    """
+    Функция для перемещения игрока в другую комнату.
 
+    :param game_state: текущее состояние игры.
+    :param direction: направление движения игрока.
+    :return: None.
+    """
+    current_room: RoomSchema = get_room(game_state)
+    if direction in current_room.exits:
+        next_room_name: Rooms = current_room.exits[direction]
+        game_state.current_room = next_room_name
+    else:
+        print("Вы не можете пойти в эту сторону")
+        return None
+    return None
 
 
 def _exit(game_state: GameState) -> None:
@@ -65,5 +83,7 @@ def get_input(game_state: GameState, promt: str="> ") -> None:
         command_handler(game_state)
     except ValueError:
         print("Некорректная команда")
+    except KeyError:
+        print("Команда не реализована. Обратитесь к разработчику.")
     except (KeyboardInterrupt, EOFError):
         game_state.game_over = True
