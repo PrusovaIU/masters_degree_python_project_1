@@ -1,6 +1,8 @@
 from enum import Enum
 from dataclasses import dataclass
 
+from labyrinth_game.schemas.item import Items
+
 
 class Rooms(Enum):
     """
@@ -37,5 +39,5 @@ class RoomSchema:
     """
     description: str
     exits: dict[Directions, Rooms]
-    items: list[str]
+    items: list[Items]
     puzzle: tuple[str, str] | None

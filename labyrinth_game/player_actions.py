@@ -1,13 +1,14 @@
 from enum import Enum
-from typing import Callable
+from typing import Callable, Any
 
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import Directions, RoomSchema, Rooms
-from labyrinth_game.constants import ROOMS
+from labyrinth_game.schemas.item import USE_ITEMS_HANDLERS, Items
 
 
 class Commands(Enum):
     solve = "solve"
+    go = "go"
     exit = "exit"
 
 
@@ -44,7 +45,7 @@ def _move_player(
         print("Вы не можете пойти в эту сторону")
 
 
-def _take_item(game_state: GameState, item_name: str) -> None:
+def _take_item(game_state: GameState, item_name: Items) -> None:
     """
     Функция для поднятия предмета из комнаты в инвентарь.
 
@@ -56,9 +57,14 @@ def _take_item(game_state: GameState, item_name: str) -> None:
     try:
         current_room.items.remove(item_name)
         game_state.player.inventory.append(item_name)
-        print("Вы подняли: " + item_name)
+        print("Вы подняли: " + item_name.value)
     except ValueError:
         print("Такого предмета здесь нет.")
+
+
+def _use_item(game_state: GameState, item: Items) -> None:
+    handler = USE_ITEMS_HANDLERS[item]
+
 
 
 def _exit(game_state: GameState) -> None:
@@ -79,9 +85,22 @@ def _exit(game_state: GameState) -> None:
             print("Некорректный ввод!")
 
 
-COMMAND_HANDLERS: dict[Commands, Callable[[GameState], None]] = {
-    Commands.exit: _exit
+COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
+    Commands.go: _move_player
 }
+
+def process_command(game_state: GameState, command: str) -> None:
+    command, args = command.split(" ", maxsplit=1)
+    command = Commands(command)
+    if command == Commands.exit:
+        _exit(game_state)
+    else:
+        command_handler: Callable[[GameState, Any], None] = \
+            COMMAND_HANDLERS[command]
+        command_handler(command, args)
+
+
+
 
 def get_input(game_state: GameState, promt: str="> ") -> None:
     """

@@ -1,4 +1,5 @@
 from labyrinth_game.schemas.room import Rooms, RoomSchema, Directions
+from labyrinth_game.schemas.item import Items
 
 # список всех комнат:
 ROOMS: dict[Rooms, RoomSchema] = {
@@ -8,7 +9,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
             Directions.north: Rooms.hall,
             Directions.east: Rooms.trap_room
         },
-        items=['torch'],
+        items=[Items.torch],
         puzzle=None
     ),
     Rooms.hall: RoomSchema(
@@ -28,7 +29,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.trap_room: RoomSchema(
         description='Комната с хитрой плиточной поломкой. На стене видна надпись: "Осторожно — ловушка".',
         exits={Directions.west: Rooms.entrance},
-        items=['rusty_key'],
+        items=[Items.rusty_key],
         puzzle=(
             'Система плит активна. Чтобы пройти, назовите слово "шаг" три раза подряд (введите "шаг шаг шаг")',
             'шаг шаг шаг'
@@ -40,7 +41,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
             Directions.east: Rooms.hall,
             Directions.north: Rooms.armory
         },
-        items=['ancient_book'],
+        items=[Items.ancient_book],
         puzzle=(
             'В одном свитке загадка: "Что растет, когда его съедают?" (ответ одно слово)',
             'резонанс'
@@ -49,13 +50,13 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.armory: RoomSchema(
         description='Старая оружейная комната. На стене висит меч, рядом — небольшая бронзовая шкатулка.',
         exits={Directions.south: Rooms.library},
-        items=['sword', 'bronze_box'],
+        items=[Items.sword, Items.bronze_box],
         puzzle=None
     ),
     Rooms.treasure_room: RoomSchema(
         description='Комната, на столе большой сундук. Дверь заперта — нужен особый ключ.',
         exits={Directions.south: Rooms.hall},
-        items=['treasure_chest'],
+        items=[Items.treasure_chest],
         puzzle=(
             'Дверь защищена кодом. Введите код (подсказка: это число пятикратного шага, 2*5= ? )',
             '10'
@@ -67,7 +68,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
             Directions.east: Rooms.treasure_room,
             Directions.west: Rooms.illusion_corridor
         },
-        items=['broken_mirror_piece'],
+        items=[Items.broken_mirror_piece],
         puzzle=(
             'Портал открывается только если вы скажете слово "свет" задом наперёд (введите его)',
             'тес'
@@ -76,7 +77,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.illusion_corridor: RoomSchema(
         description='Узкий коридор с иллюзией дверей. Кажется, здесь что-то спрятано.',
         exits={Directions.east: Rooms.mirror_room},
-        items=['illusion_key'],
+        items=[Items.illusion_key],
         puzzle=(
             'На стене надпись: "Я не существую, но меня можно увидеть. Что я?" (ответ одно слово)',
             'тень'
@@ -88,7 +89,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
             Directions.up: Rooms.hall,
             Directions.north: Rooms.torture_chamber
         },
-        items=['old_chain', 'bloodied_key'],
+        items=[Items.old_chain, Items.bloodied_key],
         puzzle=(
             'На стене надпись: "Я всегда рядом, но меня не увидишь. Что я?" (ответ одно слово)',
             'звук'
@@ -97,7 +98,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.torture_chamber: RoomSchema(  # Исправлено с "torture_chamber"
         description='Пугающая пыточная комната. Здесь много железных инструментов, цепей и столов для допросов. Воздух тяжелый и мрачный.',
         exits={Directions.south: Rooms.basement},
-        items=['iron_hook', 'broken_shackles'],
+        items=[Items.iron_hook, Items.broken_shackles],
         puzzle=(
             'На стене вырезан вопрос: "Что может говорить без голоса, путешествовать без ног и быть видимым в зеркале?"',
             'отражение'
