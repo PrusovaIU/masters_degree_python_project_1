@@ -25,7 +25,7 @@ def _show_inventory(game_state: GameState) -> None:
         print("Инвентарь пуст")
 
 
-def move_player(
+def _move_player(
         game_state: GameState,
         direction: Directions
 ) -> None:
@@ -42,6 +42,23 @@ def move_player(
         game_state.steps_taken += 1
     except KeyError:
         print("Вы не можете пойти в эту сторону")
+
+
+def _take_item(game_state: GameState, item_name: str) -> None:
+    """
+    Функция для поднятия предмета из комнаты в инвентарь.
+
+    :param game_state: текущее состояние игры.
+    :param item_name: имя предмета.
+    :return: None.
+    """
+    current_room: RoomSchema = get_room(game_state)
+    try:
+        current_room.items.remove(item_name)
+        game_state.player.inventory.append(item_name)
+        print("Вы подняли: " + item_name)
+    except ValueError:
+        print("Такого предмета здесь нет.")
 
 
 def _exit(game_state: GameState) -> None:
