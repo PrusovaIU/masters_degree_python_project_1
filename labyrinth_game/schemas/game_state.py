@@ -1,15 +1,17 @@
 from .room import Rooms
-from typing import NamedTuple
+from dataclasses import dataclass
 
 
-class Player(NamedTuple):
+@dataclass
+class Player:
     """
     Описание состояния игрока
     """
     inventory: list[str]
 
 
-class GameState(NamedTuple):
+@dataclass
+class GameState:
     """
     Состояние игры
     """

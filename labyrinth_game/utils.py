@@ -1,6 +1,5 @@
 from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.commands import Commands
-from labyrinth_game.exceptions import StopGameException
+from labyrinth_game.player_actions import Commands
 from labyrinth_game.schemas.room import Rooms, RoomSchema
 from labyrinth_game.constants import ROOMS
 
@@ -25,4 +24,4 @@ def describe_current_room(game_state: GameState) -> None:
     if current_room.puzzle:
         info += (f"Кажется, здесь есть загадка "
                  f"(используйте команду {Commands.solve.name}).")
-    print(f"Вы находитесь в {current_room.name}")
+    print(info)
