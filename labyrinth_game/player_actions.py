@@ -37,13 +37,16 @@ def move_player(
     :return: None.
     """
     current_room: RoomSchema = get_room(game_state)
-    if direction in current_room.exits:
-        next_room_name: Rooms = current_room.exits[direction]
-        game_state.current_room = next_room_name
-    else:
+    if direction not in current_room.exits:
         print("Вы не можете пойти в эту сторону")
         return None
-    return None
+    try:
+        next_room_name: Rooms = current_room.exits[direction]
+        game_state.current_room = next_room_name
+        return None
+    except KeyError:
+        print("Нельзя пойти в этом направлении.")
+        return None
 
 
 def _exit(game_state: GameState) -> None:
