@@ -10,6 +10,6 @@ def show_inventory(game_state: GameState) -> None:
     """
     if game_state.player.inventory:
         objects = "\n\t".join(game_state.player.inventory)
-        print(f"В вашем иневентаре:{objects}\n")
+        print(f"В вашем иневентаре:{objects}")
     else:
         print("Инвентарь пуст")

@@ -1,19 +1,19 @@
-from pydantic import BaseModel, Field
-from .room import Rooms, RoomSchema
+from .room import Rooms
+from typing import NamedTuple
 
 
-class Player(BaseModel):
+class Player(NamedTuple):
     """
     Описание состояния игрока
     """
-    inventory: list[str] = Field(default_factory=list)
+    inventory: list[str]
 
 
-class GameState(BaseModel):
+class GameState(NamedTuple):
     """
     Состояние игры
     """
-    player: Player = Field(default_factory=Player)
-    current_room: RoomSchema = Field(default=Rooms.entrance)
-    game_over: bool = Field(default=False)
-    steps_taken: int = Field(default=0)
+    player: Player
+    current_room: Rooms
+    game_over: bool
+    steps_taken: int

@@ -1,7 +1,5 @@
 from enum import Enum
-from typing import Optional
-
-from pydantic import BaseModel
+from typing import Optional, NamedTuple
 
 
 class Rooms(Enum):
@@ -32,7 +30,7 @@ class Directions(Enum):
     down = "down"
 
 
-class RoomSchema(BaseModel):
+class RoomSchema(NamedTuple):
     """
     Описание комнаты
     """
