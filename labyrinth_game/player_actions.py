@@ -1,6 +1,3 @@
-from enum import Enum
-from typing import Callable, Any
-
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import Directions, RoomSchema, Rooms
 from labyrinth_game.schemas.item import Items, add_item_to_inventory
@@ -8,11 +5,10 @@ from labyrinth_game.item_use_handlers import UseItemHandlerType, \
     USE_ITEMS_HANDLERS
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from itertools import groupby
-from labyrinth_game.utils import user_input
 from labyrinth_game.exceptions import ExitException
 
 
-def _show_inventory(game_state: GameState) -> None:
+def show_inventory(game_state: GameState) -> None:
     """
     Функция для вывода в консоль информации об объектах в инвентаре игрока.
 
@@ -34,7 +30,7 @@ def _show_inventory(game_state: GameState) -> None:
         print("Инвентарь пуст")
 
 
-def _move_player(
+def move(
         game_state: GameState,
         direction: Directions
 ) -> None:
@@ -53,7 +49,7 @@ def _move_player(
         print("Вы не можете пойти в эту сторону")
 
 
-def _take_item(game_state: GameState, item_name: Items) -> None:
+def take(game_state: GameState, item_name: Items) -> None:
     """
     Функция для поднятия предмета из комнаты в инвентарь.
 
@@ -70,7 +66,7 @@ def _take_item(game_state: GameState, item_name: Items) -> None:
         print("Такого предмета здесь нет.")
 
 
-def _use_item(game_state: GameState, item: Items) -> None:
+def use(game_state: GameState, item: Items) -> None:
     """
     Функция для использования предмета.
 
@@ -82,7 +78,7 @@ def _use_item(game_state: GameState, item: Items) -> None:
     handler(game_state)
 
 
-def _exit(game_state: GameState) -> None:
+def exit(game_state: GameState) -> None:
     """
     Обработчик команды выхода из игры.
 
@@ -99,7 +95,7 @@ def _exit(game_state: GameState) -> None:
             print("Некорректный ввод!")
 
 
-def _solve_puzzle(game_state: GameState) -> None:
+def solve(game_state: GameState) -> None:
     """
     Функция для обнаружения и решения загадки.
 
@@ -117,47 +113,3 @@ def _solve_puzzle(game_state: GameState) -> None:
                 game_state.game_over = True
     else:
         print("Загадок здесь нет.")
-
-
-class Commands(Enum):
-    inventory = "inventory"
-    solve = "solve"
-    go = "go"
-    use = "use"
-    exit = "exit"
-
-
-COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
-    Commands.go: _move_player,
-    Commands.use: _use_item,
-    Commands.solve: _solve_puzzle,
-}
-
-def process_command(game_state: GameState, command: str) -> None:
-    command, args = command.split(" ", maxsplit=1)
-    command = Commands(command)
-    args = args.strip().lower()
-    if command == Commands.exit:
-        _exit(game_state)
-    else:
-        command_handler: Callable[[GameState, Any], None] = \
-            COMMAND_HANDLERS[command]
-        command_handler(game_state, args)
-
-
-def get_input(game_state: GameState, promt: str="> ") -> None:
-    """
-    Функция для получения ввода пользователя.
-
-    :param game_state: текущее состояние игры.
-    :param promt: строка с просьбой ввести команду.
-    :return: None.
-    """
-    try:
-        user_command = user_input(promt, [el.value for el in Commands])
-        if user_command:
-            process_command(game_state, user_command)
-    except ValueError:
-        print("Некорректная команда")
-    except KeyError:
-        print("Команда не реализована. Обратитесь к разработчику.")
