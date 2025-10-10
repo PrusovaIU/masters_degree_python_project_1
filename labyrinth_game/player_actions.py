@@ -8,6 +8,8 @@ from labyrinth_game.item_use_handlers import UseItemHandlerType, \
     USE_ITEMS_HANDLERS
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from itertools import groupby
+from labyrinth_game.utils import user_input
+from labyrinth_game.exceptions import ExitException
 
 
 def _show_inventory(game_state: GameState) -> None:
@@ -77,7 +79,7 @@ def _use_item(game_state: GameState, item: Items) -> None:
     :return: None.
     """
     handler: UseItemHandlerType = USE_ITEMS_HANDLERS[item]
-    handler(game_state.player.inventory)
+    handler(game_state)
 
 
 def _exit(game_state: GameState) -> None:
@@ -90,8 +92,7 @@ def _exit(game_state: GameState) -> None:
     while True:
         to_exit = input("Вы хотите выйти из игры? (y/n): ")
         if to_exit == "y":
-            game_state.game_over = True
-            return None
+            raise ExitException()
         elif to_exit == "n":
             return None
         else:
@@ -119,6 +120,7 @@ def _solve_puzzle(game_state: GameState) -> None:
 
 
 class Commands(Enum):
+    inventory = "inventory"
     solve = "solve"
     go = "go"
     use = "use"
@@ -134,14 +136,13 @@ COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
 def process_command(game_state: GameState, command: str) -> None:
     command, args = command.split(" ", maxsplit=1)
     command = Commands(command)
+    args = args.strip().lower()
     if command == Commands.exit:
         _exit(game_state)
     else:
         command_handler: Callable[[GameState, Any], None] = \
             COMMAND_HANDLERS[command]
-        command_handler(command, args)
-
-
+        command_handler(game_state, args)
 
 
 def get_input(game_state: GameState, promt: str="> ") -> None:
@@ -153,13 +154,10 @@ def get_input(game_state: GameState, promt: str="> ") -> None:
     :return: None.
     """
     try:
-        command = Commands(input(promt))
-        command_handler: Callable[[GameState], None] = \
-            COMMAND_HANDLERS[command]
-        command_handler(game_state)
+        user_command = user_input(promt, [el.value for el in Commands])
+        if user_command:
+            process_command(game_state, user_command)
     except ValueError:
         print("Некорректная команда")
     except KeyError:
         print("Команда не реализована. Обратитесь к разработчику.")
-    except (KeyboardInterrupt, EOFError):
-        game_state.game_over = True
