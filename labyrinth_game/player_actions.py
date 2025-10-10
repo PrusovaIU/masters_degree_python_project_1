@@ -6,6 +6,7 @@ from labyrinth_game.item_use_handlers import UseItemHandlerType, \
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from itertools import groupby
 from labyrinth_game.exceptions import ExitException
+from labyrinth_game.rooms_functional import describe_current_room
 
 
 def show_inventory(game_state: GameState) -> None:
@@ -25,31 +26,33 @@ def show_inventory(game_state: GameState) -> None:
             istr = f"{len(group)} x {key.value}"
             info_strs.append(istr)
         info = "\n\t".join(info_strs)
-        print(f"В вашем инвентаре: {info}")
+        print(f"В вашем инвентаре:\n\t{info}")
     else:
         print("Инвентарь пуст")
 
 
 def move(
         game_state: GameState,
-        direction: Directions
+        direction_name: str
 ) -> None:
     """
     Функция для перемещения игрока в другую комнату.
 
     :param game_state: текущее состояние игры.
-    :param direction: направление движения игрока.
+    :param direction_name: направление движения игрока.
     :return: None.
     """
     current_room: RoomSchema = get_room(game_state)
+    direction = Directions(direction_name)
     try:
         game_state.current_room = current_room.exits[direction]
         game_state.steps_taken += 1
+        describe_current_room(game_state)
     except KeyError:
         print("Вы не можете пойти в эту сторону")
 
 
-def take(game_state: GameState, item_name: Items) -> None:
+def take(game_state: GameState, item_name: str) -> None:
     """
     Функция для поднятия предмета из комнаты в инвентарь.
 
@@ -58,27 +61,29 @@ def take(game_state: GameState, item_name: Items) -> None:
     :return: None.
     """
     current_room: RoomSchema = get_room(game_state)
+    item = Items(item_name)
     try:
-        idx = current_room.items.index(item_name)
-        if add_item_to_inventory(item_name, game_state.player.inventory):
+        idx = current_room.items.index(item)
+        if add_item_to_inventory(item, game_state.player.inventory):
             current_room.items.pop(idx)
     except ValueError:
         print("Такого предмета здесь нет.")
 
 
-def use(game_state: GameState, item: Items) -> None:
+def use(game_state: GameState, item_name: str) -> None:
     """
     Функция для использования предмета.
 
     :param game_state: текущее состояние игры.
-    :param item: используемый предмет.
+    :param item_name: имя используемого предмета.
     :return: None.
     """
+    item = Items(item_name)
     handler: UseItemHandlerType = USE_ITEMS_HANDLERS[item]
     handler(game_state)
 
 
-def exit(game_state: GameState) -> None:
+def game_exit(game_state: GameState) -> None:
     """
     Обработчик команды выхода из игры.
 

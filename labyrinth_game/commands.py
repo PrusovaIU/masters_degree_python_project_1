@@ -1,28 +1,36 @@
-from enum import Enum
 from typing import Callable, Any
 
-from labyrinth_game.player_actions import exit, show_inventory, \
-    solve, move, use
+from labyrinth_game.constants import Commands
+from labyrinth_game.player_actions import game_exit, show_inventory, \
+    solve, move, use, take
 from labyrinth_game.schemas.game_state import GameState
 
+COMMANDS_HELP = {
+    Commands.inventory: "Показать инвентарь",
+    Commands.solve: "Решить загадку",
+    Commands.go: "Переместиться в указанную комнату",
+    Commands.use: "Использовать предмет",
+    Commands.take: "Взять предмет",
+    Commands.exit: "Выход из игры"
+}
 
-class Commands(Enum):
-    inventory = "inventory"
-    solve = "solve"
-    go = "go"
-    use = "use"
-    exit = "exit"
+def _help(_: GameState) -> None:
+    print("Доступные команды:")
+    for command, description in COMMANDS_HELP.items():
+        print(f"\t{command.value} - {description}")
 
 
 SIMPLE_COMMANDS_HANDLERS: dict[Commands, Callable[[GameState], None]] = {
-    Commands.exit: exit,
+    Commands.exit: game_exit,
     Commands.inventory: show_inventory,
-    Commands.solve: solve
+    Commands.solve: solve,
+    Commands.help: _help
 }
 COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
     Commands.go: move,
     Commands.use: use,
     Commands.solve: solve,
+    Commands.take: take
 }
 
 
@@ -65,6 +73,7 @@ def get_input(game_state: GameState, promt: str="> ") -> None:
                 process_command(game_state, command)
                 result = True
     except ValueError:
-        print("Некорректная команда")
+        print("Некорректная команда. "
+              "Используйте help для получения списка команд.")
     except KeyError:
         print("Команда не реализована. Обратитесь к разработчику.")

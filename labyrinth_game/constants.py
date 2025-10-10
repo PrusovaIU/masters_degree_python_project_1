@@ -1,3 +1,5 @@
+from enum import Enum
+
 from labyrinth_game.schemas.room import Rooms, RoomSchema, Directions
 from labyrinth_game.schemas.item import Items
 from labyrinth_game.schemas.puzzle import Puzzle
@@ -26,7 +28,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         items=[],
         puzzle=Puzzle(
             text='На пьедестале надпись: "Назовите число, которое идет после '
-                 'девяти". Введите ответ цифрой или словом.',
+                 'девяти". Введите ответ цифрой.',
             answer='10',
             prize=Items.gold_coin
         )
@@ -128,3 +130,16 @@ ROOMS: dict[Rooms, RoomSchema] = {
         )
     )
 }
+
+
+class Commands(Enum):
+    """
+    Список команд
+    """
+    inventory = "inventory"
+    solve = "solve"
+    go = "go"
+    use = "use"
+    take = "take"
+    exit = "exit"
+    help = "help"
