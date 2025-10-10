@@ -6,6 +6,24 @@ from labyrinth_game.constants import ROOMS
 from labyrinth_game.schemas.item import Inventory
 
 
+def user_input(promt: str, allowed_answer: list[str]) -> str:
+    """
+    Функция для получения ввода пользователя.
+
+    :param promt: текст для вывода в консоль.
+    :param allowed_answer: список допустимых ответов.
+    :return: введенный пользователем ответ.
+    """
+    info = f"{promt} ({'/'.join(allowed_answer)}): "
+    while True:
+        command = input(info).strip().lower()
+        if command not in allowed_answer:
+            print("Неверная команда!")
+        else:
+            return command
+
+
+
 def describe_current_room(game_state: GameState) -> None:
     """
     Функция для вывода в консоль описания текущей комнаты.
@@ -27,31 +45,3 @@ def describe_current_room(game_state: GameState) -> None:
         info += (f"Кажется, здесь есть загадка "
                  f"(используйте команду {Commands.solve.name}).")
     print(info)
-
-
-def puzzle(
-        current_room: RoomSchema,
-        inventory: Inventory
-) -> None:
-    """
-    Функция для решения загадки.
-
-    :param current_room: текущая комната, в которой находится загадка.
-    :param inventory: инвентарь игрока.
-    :return: None
-    """
-    print(f"Перед Вами загадка:\n"
-          f"{current_room.puzzle.text}\n")
-    answer: str = input("Ваш ответ: ").strip().lower()
-    if answer == current_room.puzzle.answer:
-        current_room.puzzle = None
-        info = "Правильно!"
-        prize = current_room.puzzle.prize
-        if prize:
-            info += f"Вы получаете {prize.value}."
-            inventory.append(prize)
-        else:
-            info += "Вы ничего не получаете."
-        print(info)
-    else:
-        print("Неправильно!")

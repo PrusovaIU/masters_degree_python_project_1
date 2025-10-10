@@ -119,7 +119,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.torture_chamber: RoomSchema(  # Исправлено с "torture_chamber"
         description='Пугающая пыточная комната. Здесь много железных инструментов, цепей и столов для допросов. Воздух тяжелый и мрачный.',
         exits={Directions.south: Rooms.basement},
-        items=[Items.iron_hook, Items.broken_shackles],
+        items=[Items.iron_hook, Items.broken_shackles, Items.treasure_key],
         puzzle=Puzzle(
             text='На стене вырезан вопрос: "Что может говорить без голоса, '
                  'путешествовать без ног и быть видимым в зеркале?"',

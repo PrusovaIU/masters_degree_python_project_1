@@ -3,9 +3,10 @@ from typing import Callable, Any
 
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import Directions, RoomSchema, Rooms
-from labyrinth_game.schemas.item import (USE_ITEMS_HANDLERS, Items,
-                                         UseItemHandlerType)
-from labyrinth_game.utils import puzzle
+from labyrinth_game.schemas.item import (Items)
+from labyrinth_game.item_use_handlers import UseItemHandlerType, \
+    USE_ITEMS_HANDLERS
+from labyrinth_game.schemas.puzzle import solve_puzzle
 
 
 def _show_inventory(game_state: GameState) -> None:
@@ -97,7 +98,13 @@ def _solve_puzzle(game_state: GameState) -> None:
     """
     current_room: RoomSchema = get_room(game_state)
     if current_room.puzzle:
-        puzzle(current_room, game_state.player.inventory)
+        success, prize = solve_puzzle(current_room.puzzle)
+        if success:
+            game_state.player.inventory.append(prize)
+            current_room.puzzle = None
+            if game_state.current_room == Rooms.treasure_room:
+                print("Вы нашли сокровище!")
+                game_state.game_over = True
     else:
         print("Загадок здесь нет.")
 
