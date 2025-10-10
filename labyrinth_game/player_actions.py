@@ -7,6 +7,7 @@ from labyrinth_game.schemas.item import Items, add_item_to_inventory
 from labyrinth_game.item_use_handlers import UseItemHandlerType, \
     USE_ITEMS_HANDLERS
 from labyrinth_game.schemas.puzzle import solve_puzzle
+from itertools import groupby
 
 
 def _show_inventory(game_state: GameState) -> None:
@@ -17,8 +18,16 @@ def _show_inventory(game_state: GameState) -> None:
     :return: None
     """
     if game_state.player.inventory:
-        objects = "\n\t".join(game_state.player.inventory)
-        print(f"В вашем инвентаре:{objects}")
+        groups: dict[Items, list[Items]] = {
+            key: list(group)
+            for key, group in groupby(game_state.player.inventory)
+        }
+        info_strs = []
+        for key, group in groups.items():
+            istr = f"{len(group)} x {key.value}"
+            info_strs.append(istr)
+        info = "\n\t".join(info_strs)
+        print(f"В вашем инвентаре: {info}")
     else:
         print("Инвентарь пуст")
 
