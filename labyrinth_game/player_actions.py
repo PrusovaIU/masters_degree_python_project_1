@@ -3,13 +3,9 @@ from typing import Callable, Any
 
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import Directions, RoomSchema, Rooms
-from labyrinth_game.schemas.item import USE_ITEMS_HANDLERS, Items
-
-
-class Commands(Enum):
-    solve = "solve"
-    go = "go"
-    exit = "exit"
+from labyrinth_game.schemas.item import (USE_ITEMS_HANDLERS, Items,
+                                         UseItemHandlerType)
+from labyrinth_game.utils import puzzle
 
 
 def _show_inventory(game_state: GameState) -> None:
@@ -63,8 +59,15 @@ def _take_item(game_state: GameState, item_name: Items) -> None:
 
 
 def _use_item(game_state: GameState, item: Items) -> None:
-    handler = USE_ITEMS_HANDLERS[item]
+    """
+    Функция для использования предмета.
 
+    :param game_state: текущее состояние игры.
+    :param item: используемый предмет.
+    :return: None.
+    """
+    handler: UseItemHandlerType = USE_ITEMS_HANDLERS[item]
+    handler(game_state.player.inventory)
 
 
 def _exit(game_state: GameState) -> None:
@@ -85,8 +88,31 @@ def _exit(game_state: GameState) -> None:
             print("Некорректный ввод!")
 
 
+def _solve_puzzle(game_state: GameState) -> None:
+    """
+    Функция для обнаружения и решения загадки.
+
+    :param game_state: состояние игры.
+    :return: None.
+    """
+    current_room: RoomSchema = get_room(game_state)
+    if current_room.puzzle:
+        puzzle(current_room, game_state.player.inventory)
+    else:
+        print("Загадок здесь нет.")
+
+
+class Commands(Enum):
+    solve = "solve"
+    go = "go"
+    use = "use"
+    exit = "exit"
+
+
 COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
-    Commands.go: _move_player
+    Commands.go: _move_player,
+    Commands.use: _use_item,
+    Commands.solve: _solve_puzzle,
 }
 
 def process_command(game_state: GameState, command: str) -> None:

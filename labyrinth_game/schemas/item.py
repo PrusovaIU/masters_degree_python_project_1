@@ -16,9 +16,11 @@ class Items(Enum):
     bloodied_key = "bloodied_key"
     iron_hook = "iron_hook"
     broken_shackles = "broken_shackles"
+    gold_coin = "gold_coin"
 
 
 Inventory = list[Items]
+UseItemHandlerType = Callable[[Inventory], None]
 
 
 def _use_torch(inventory: Inventory) -> None:
@@ -41,8 +43,8 @@ def _default_action(inventory: Inventory) -> None:
     print("С этим ничего нельзя сделать.")
 
 
-class ItemHandlers(UserDict[Items, Callable[[Inventory], None]]):
-    def __missing__(self, key: Items) -> Callable[[Inventory], None]:
+class ItemHandlers(UserDict[Items, UseItemHandlerType]):
+    def __missing__(self, key: Items) -> UseItemHandlerType:
         return _default_action
 
 
