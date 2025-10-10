@@ -3,7 +3,7 @@ from typing import Callable, Any
 
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import Directions, RoomSchema, Rooms
-from labyrinth_game.schemas.item import (Items)
+from labyrinth_game.schemas.item import Items, add_item_to_inventory
 from labyrinth_game.item_use_handlers import UseItemHandlerType, \
     USE_ITEMS_HANDLERS
 from labyrinth_game.schemas.puzzle import solve_puzzle
@@ -52,9 +52,9 @@ def _take_item(game_state: GameState, item_name: Items) -> None:
     """
     current_room: RoomSchema = get_room(game_state)
     try:
-        current_room.items.remove(item_name)
-        game_state.player.inventory.append(item_name)
-        print("Вы подняли: " + item_name.value)
+        idx = current_room.items.index(item_name)
+        if add_item_to_inventory(item_name, game_state.player.inventory):
+            current_room.items.pop(idx)
     except ValueError:
         print("Такого предмета здесь нет.")
 
