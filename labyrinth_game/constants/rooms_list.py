@@ -1,6 +1,8 @@
+from labyrinth_game.constants.direction import Directions
 from labyrinth_game.constants.item import Items
+from labyrinth_game.constants.room import Rooms
 from labyrinth_game.schemas.puzzle import Puzzle
-from labyrinth_game.schemas.room import Directions, Rooms, RoomSchema
+from labyrinth_game.schemas.room import RoomSchema
 
 ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.entrance: RoomSchema(

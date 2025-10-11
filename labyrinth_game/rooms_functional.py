@@ -1,7 +1,8 @@
 from labyrinth_game.constants.command import Commands
+from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.schemas.room import Rooms, RoomSchema
+from labyrinth_game.schemas.room import RoomSchema
 
 
 def describe_current_room(game_state: GameState) -> None:

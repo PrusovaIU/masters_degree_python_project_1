@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.inventory import Inventory
 
-from .room import Rooms, RoomSchema
+from ..constants.room import Rooms
+from .room import RoomSchema
 
 
 @dataclass
