@@ -1,4 +1,5 @@
-from labyrinth_game.constants import ROOMS, Commands
+from labyrinth_game.constants.command import Commands
+from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.schemas.game_state import GameState
 from labyrinth_game.schemas.room import Rooms, RoomSchema
 

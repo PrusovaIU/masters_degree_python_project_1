@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from .item import Items
+from labyrinth_game.constants.item import Items
 
 
 class Puzzle(NamedTuple):

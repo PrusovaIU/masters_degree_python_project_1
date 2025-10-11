@@ -1,6 +1,6 @@
 from typing import Any, Callable
 
-from labyrinth_game.constants import Commands
+from labyrinth_game.constants.command import Commands
 from labyrinth_game.player_actions import (game_exit, move, show_inventory,
                                            solve, take, use)
 from labyrinth_game.schemas.game_state import GameState

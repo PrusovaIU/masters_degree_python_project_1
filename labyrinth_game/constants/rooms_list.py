@@ -1,10 +1,7 @@
-from enum import Enum
-
-from labyrinth_game.schemas.item import Items
+from labyrinth_game.constants.item import Items
 from labyrinth_game.schemas.puzzle import Puzzle
 from labyrinth_game.schemas.room import Directions, Rooms, RoomSchema
 
-# список всех комнат:
 ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.entrance: RoomSchema(
         description='Вы в темном входе лабиринта. Стены покрыты мхом. '
@@ -132,16 +129,3 @@ ROOMS: dict[Rooms, RoomSchema] = {
         )
     )
 }
-
-
-class Commands(Enum):
-    """
-    Список команд
-    """
-    inventory = "inventory"
-    solve = "solve"
-    go = "go"
-    use = "use"
-    take = "take"
-    exit = "exit"
-    help = "help"

@@ -1,12 +1,12 @@
 from collections import Counter
-from itertools import groupby
 
+from labyrinth_game.constants.item import Items
 from labyrinth_game.exceptions import ExitException
+from labyrinth_game.inventory import add_item_to_inventory
 from labyrinth_game.item_use_handlers import (USE_ITEMS_HANDLERS,
                                               UseItemHandlerType)
 from labyrinth_game.rooms_functional import describe_current_room
 from labyrinth_game.schemas.game_state import GameState, get_room
-from labyrinth_game.schemas.item import Items, add_item_to_inventory
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from labyrinth_game.schemas.room import Directions, Rooms, RoomSchema
 
