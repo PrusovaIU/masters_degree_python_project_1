@@ -7,6 +7,7 @@ from labyrinth_game.schemas.puzzle import solve_puzzle
 from itertools import groupby
 from labyrinth_game.exceptions import ExitException
 from labyrinth_game.rooms_functional import describe_current_room
+from collections import Counter
 
 
 def show_inventory(game_state: GameState) -> None:
@@ -17,13 +18,9 @@ def show_inventory(game_state: GameState) -> None:
     :return: None
     """
     if game_state.player.inventory:
-        groups: dict[Items, list[Items]] = {
-            key: list(group)
-            for key, group in groupby(game_state.player.inventory)
-        }
         info_strs = []
-        for key, group in groups.items():
-            istr = f"{len(group)} x {key.value}"
+        for key, count in Counter(game_state.player.inventory).items():
+            istr = f"{count} x {key.value}"
             info_strs.append(istr)
         info = "\n\t".join(info_strs)
         print(f"В вашем инвентаре:\n\t{info}")

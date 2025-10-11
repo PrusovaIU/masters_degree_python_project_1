@@ -68,5 +68,6 @@ USE_ITEMS_HANDLERS = ItemHandlers({
     Items.torch: _use_torch,
     Items.sword: _use_sword,
     Items.bronze_box: _use_bronze_box,
-    Items.treasure_key: _use_treasure_key
+    Items.treasure_key: _use_treasure_key,
+    Items.treasure_chest: _use_treasure_chest
 })

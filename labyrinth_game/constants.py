@@ -22,8 +22,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         exits={
             Directions.south: Rooms.entrance,
             Directions.west: Rooms.library,
-            Directions.north: Rooms.treasure_room,
-            Directions.down: Rooms.basement
+            Directions.north: Rooms.treasure_room
         },
         items=[],
         puzzle=Puzzle(
@@ -36,7 +35,10 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.trap_room: RoomSchema(
         description='Комната с хитрой плиточной поломкой. На стене видна '
                     'надпись: "Осторожно — ловушка".',
-        exits={Directions.west: Rooms.entrance},
+        exits={
+            Directions.west: Rooms.entrance,
+            Directions.down: Rooms.basement
+        },
         items=[Items.rusty_key],
         puzzle=Puzzle(
             text='Система плит активна. Чтобы пройти, назовите слово "шаг" '
@@ -107,7 +109,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.basement: RoomSchema(
         description='Холодный подвал с сырым каменным полом. В углу стоит старый грубый стол, на котором видны следы крови.',
         exits={
-            Directions.up: Rooms.hall,
+            Directions.up: Rooms.trap_room,
             Directions.north: Rooms.torture_chamber
         },
         items=[Items.old_chain, Items.bloodied_key],
