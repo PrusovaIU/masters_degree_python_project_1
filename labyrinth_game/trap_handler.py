@@ -1,10 +1,11 @@
 from collections.abc import Callable
 
-from labyrinth_game.schemas.game_state import GameState, get_room
-from labyrinth_game.constants.trap import Traps
-from labyrinth_game.utils import pseudo_random
 from labyrinth_game.constants.item import Items
 from labyrinth_game.constants.room import Rooms
+from labyrinth_game.constants.trap import Traps
+from labyrinth_game.schemas.game_state import GameState, get_room
+from labyrinth_game.schemas.room import RoomSchema
+from labyrinth_game.utils import pseudo_random
 
 
 def _inventory_lost(game_state: GameState) -> Items | None:
@@ -51,7 +52,7 @@ def _icy_floor_handler(game_state: GameState) -> None:
             f"\tВы потеряли {lost_hp} единиц здоровья.")
     if lost_item:
         info += f"\n\tИз вашей сумки выпал {lost_item.value}"
-        current_room: Room = get_room(game_state)
+        current_room: RoomSchema = get_room(game_state)
         current_room.items.append(lost_item)
     print(info)
 
