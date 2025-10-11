@@ -1,12 +1,12 @@
 from collections import UserDict
 from typing import Callable
 
-from labyrinth_game.schemas.item import Items
-from labyrinth_game.schemas.room import Rooms
-from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.utils import user_input
 from labyrinth_game.constants import ROOMS
+from labyrinth_game.schemas.game_state import GameState
+from labyrinth_game.schemas.item import Items
 from labyrinth_game.schemas.puzzle import solve_puzzle
+from labyrinth_game.schemas.room import Rooms
+from labyrinth_game.utils import user_input
 
 UseItemHandlerType = Callable[[GameState], None]
 

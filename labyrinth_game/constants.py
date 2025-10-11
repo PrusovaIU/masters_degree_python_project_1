@@ -1,8 +1,8 @@
 from enum import Enum
 
-from labyrinth_game.schemas.room import Rooms, RoomSchema, Directions
 from labyrinth_game.schemas.item import Items
 from labyrinth_game.schemas.puzzle import Puzzle
+from labyrinth_game.schemas.room import Directions, Rooms, RoomSchema
 
 # список всех комнат:
 ROOMS: dict[Rooms, RoomSchema] = {

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from labyrinth_game.schemas.game_state import GameState, initial_state
-from labyrinth_game.rooms_functional import describe_current_room
 from labyrinth_game.commands import get_input
 from labyrinth_game.exceptions import ExitException
+from labyrinth_game.rooms_functional import describe_current_room
+from labyrinth_game.schemas.game_state import GameState, initial_state
 
 
 def main():

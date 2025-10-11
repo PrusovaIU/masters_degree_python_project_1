@@ -1,5 +1,5 @@
-from enum import Enum
 from dataclasses import dataclass
+from enum import Enum
 
 from labyrinth_game.schemas.item import Items
 from labyrinth_game.schemas.puzzle import Puzzle

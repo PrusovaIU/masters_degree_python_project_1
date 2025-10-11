@@ -1,7 +1,9 @@
-from .room import Rooms, RoomSchema
-from .item import Inventory
 from dataclasses import dataclass
+
 from labyrinth_game.constants import ROOMS
+
+from .item import Inventory
+from .room import Rooms, RoomSchema
 
 
 @dataclass
