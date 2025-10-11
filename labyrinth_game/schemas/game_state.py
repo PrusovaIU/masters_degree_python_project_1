@@ -13,6 +13,7 @@ class Player:
     Описание состояния игрока
     """
     inventory: Inventory
+    hp: int
 
 
 @dataclass
@@ -27,7 +28,10 @@ class GameState:
 
 
 def initial_state() -> GameState:
-    player = Player(inventory=[])
+    player = Player(
+        inventory=[],
+        hp=30
+    )
     return GameState(
         player=player,
         current_room=Rooms.entrance,
