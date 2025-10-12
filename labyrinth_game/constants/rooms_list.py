@@ -13,7 +13,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
             Directions.east: Rooms.trap_room
         },
         items=[Items.torch],
-        puzzle=None
+        puzzle=None,
+        trap=False
     ),
     Rooms.hall: RoomSchema(
         description='Большой зал с эхом. По центру стоит пьедестал с '
@@ -29,7 +30,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                  'девяти". Введите ответ цифрой.',
             answer='10',
             prize=Items.gold_coin
-        )
+        ),
+        trap=False
     ),
     Rooms.trap_room: RoomSchema(
         description='Комната с хитрой плиточной поломкой. На стене видна '
@@ -44,7 +46,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                 'три раза подряд (введите "шаг шаг шаг")',
             answer='шаг шаг шаг',
             prize=None
-        )
+        ),
+        trap=True
     ),
     Rooms.library: RoomSchema(
         description='Пыльная библиотека. На полках старые свитки. '
@@ -59,7 +62,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                  '(ответ одно слово)',
             answer='резонанс',
             prize=Items.gold_coin
-        )
+        ),
+        trap=True
     ),
     Rooms.armory: RoomSchema(
         description='Старая оружейная комната. На стене висит меч, '
@@ -77,7 +81,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
             '(подсказка: это число пятикратного шага, 2*5= ? )',
             answer='10',
             prize=Items.gold_coin
-        )
+        ),
+        trap=True
     ),
     Rooms.mirror_room: RoomSchema(
         description='Стены этой комнаты покрыты зеркалами. '
@@ -92,7 +97,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                  'наперёд (введите его)',
             answer='тевс',
             prize=Items.gold_coin
-        )
+        ),
+        trap=False
     ),
     Rooms.illusion_corridor: RoomSchema(
         description='Узкий коридор с иллюзией дверей. Кажется, здесь что-то спрятано.',
@@ -103,7 +109,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                  'Что я?" (ответ одно слово)',
             answer='тень',
             prize=None
-        )
+        ),
+        trap=False
     ),
     Rooms.basement: RoomSchema(
         description='Холодный подвал с сырым каменным полом. В углу стоит старый грубый стол, на котором видны следы крови.',
@@ -117,7 +124,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                  'Что я?" (ответ одно слово)',
             answer='звук',
             prize=None
-        )
+        ),
+        trap=True
     ),
     Rooms.torture_chamber: RoomSchema(  # Исправлено с "torture_chamber"
         description='Пугающая пыточная комната. Здесь много железных инструментов, цепей и столов для допросов. Воздух тяжелый и мрачный.',
@@ -128,6 +136,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
                  'путешествовать без ног и быть видимым в зеркале?"',
             answer='отражение',
             prize=Items.gold_coin
-        )
+        ),
+        trap=True
     )
 }

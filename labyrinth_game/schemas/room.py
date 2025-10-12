@@ -15,3 +15,4 @@ class RoomSchema:
     exits: dict[Directions, Rooms]
     items: list[Items]
     puzzle: Puzzle | None
+    trap: bool

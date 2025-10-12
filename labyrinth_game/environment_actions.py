@@ -1,4 +1,5 @@
-from labyrinth_game.schemas.game_state import GameState
+from labyrinth_game.schemas.game_state import GameState, get_room
+from labyrinth_game.schemas.room import RoomSchema
 from labyrinth_game.utils import pseudo_random
 from labyrinth_game.constants.item import Items
 from labyrinth_game.trap_handler import trigger_trap
@@ -25,18 +26,34 @@ def _fright(game_state: GameState) -> None:
     """
     if Items.sword in game_state.player.inventory:
         print(f"Слабые шорохи доносятся из глубины коридора, будто что-то "
-              f"наблюдает за вами. Как только вы поднимаете "
+              f"наблюдает за вами. Как только вы берете в руки "
               f"{Items.sword.value}, звуки исчезают, и вокруг снова царит "
-              f"безмолвие — словно оружие прогнало невидимых слушателей.")
+              f"безмолвие — словно оружие прогнало невидимых наблюдателей.")
     else:
         trigger_trap(game_state, Traps.ghost)
 
 
 def _trap(game_state: GameState) -> None:
+    """
+    Функция для срабатывания ловушки.
 
+    :param game_state: текущее состояние игры.
+    :return: None.
+    """
+    current_room: RoomSchema = get_room(game_state)
+    if current_room.trap and Items.torch not in game_state.player.inventory:
+        traps = list(Traps)
+        trap_id: int = pseudo_random(game_state.steps_taken, len(traps))
+        trigger_trap(game_state, traps[trap_id])
 
 
 def random_event(game_state: GameState) -> None:
+    """
+    Рандомное событие.
+
+    :param game_state: текущее состояние игры.
+    :return: None.
+    """
     is_action: int = pseudo_random(game_state.steps_taken, 3)
     match is_action:
         case 1:
@@ -44,4 +61,4 @@ def random_event(game_state: GameState) -> None:
         case 2:
             _fright(game_state)
         case 3:
-
+            _trap(game_state)

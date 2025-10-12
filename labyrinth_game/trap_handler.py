@@ -101,7 +101,7 @@ def _ghost_handler(game_state: GameState) -> None:
             f"в бегство, не заботясь о направлении\n")
     if lost_item:
         info += f"\n\tПока Вы бежали, из Вышей сумки выпало {lost_item.value}"
-    rooms = list(Rooms)
+    rooms = [room for room in Rooms if room != game_state.current_room]
     room_id: int = pseudo_random(game_state.steps_taken, len(rooms))
     game_state.current_room = rooms[room_id]
 
