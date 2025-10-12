@@ -70,7 +70,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
                     'рядом — небольшая бронзовая шкатулка.',
         exits={Directions.south: Rooms.library},
         items=[Items.sword, Items.bronze_box],
-        puzzle=None
+        puzzle=None,
+        trap=False
     ),
     Rooms.treasure_room: RoomSchema(
         description='Комната, на столе большой сундук. Дверь заперта — нужен особый ключ.',

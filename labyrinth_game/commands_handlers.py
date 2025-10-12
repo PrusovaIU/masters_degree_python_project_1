@@ -1,11 +1,11 @@
 from typing import Any, Callable
 
 from labyrinth_game.constants.command import Commands
-from labyrinth_game.player_actions import (game_exit, move, show_inventory,
-                                           solve, take, use)
+from labyrinth_game import player_actions
 from labyrinth_game.schemas.game_state import GameState
 
 COMMANDS_HELP = {
+    Commands.look_around: "Осмотреться",
     Commands.inventory: "Показать инвентарь",
     Commands.solve: "Решить загадку",
     Commands.go: "Переместиться в указанную комнату",
@@ -21,16 +21,17 @@ def _help(_: GameState) -> None:
 
 
 SIMPLE_COMMANDS_HANDLERS: dict[Commands, Callable[[GameState], None]] = {
-    Commands.exit: game_exit,
-    Commands.inventory: show_inventory,
-    Commands.solve: solve,
+    Commands.exit: player_actions.game_exit,
+    Commands.look_around: player_actions.look_around,
+    Commands.inventory: player_actions.show_inventory,
+    Commands.solve: player_actions.solve,
     Commands.help: _help
 }
 COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
-    Commands.go: move,
-    Commands.use: use,
-    Commands.solve: solve,
-    Commands.take: take
+    Commands.go: player_actions.move,
+    Commands.use: player_actions.use,
+    Commands.solve: player_actions.solve,
+    Commands.take: player_actions.take
 }
 
 

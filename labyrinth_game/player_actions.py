@@ -11,6 +11,8 @@ from labyrinth_game.rooms_functional import describe_current_room
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from labyrinth_game.schemas.room import RoomSchema
+from labyrinth_game.environment_actions import random_event
+from labyrinth_game.exceptions import DeadException
 
 
 def show_inventory(game_state: GameState) -> None:
@@ -41,12 +43,17 @@ def move(
     :param game_state: текущее состояние игры.
     :param direction_name: направление движения игрока.
     :return: None.
+
+    :raises DeadException: если игрок умер.
     """
     current_room: RoomSchema = get_room(game_state)
     direction = Directions(direction_name)
     try:
         game_state.current_room = current_room.exits[direction]
         game_state.steps_taken += 1
+        random_event(game_state)
+        if game_state.player.hp <= 0:
+            raise DeadException("Вы умерли!")
         describe_current_room(game_state)
     except KeyError:
         print("Вы не можете пойти в эту сторону")
@@ -118,3 +125,13 @@ def solve(game_state: GameState) -> None:
                 game_state.game_over = True
     else:
         print("Загадок здесь нет.")
+
+
+def look_around(game_state: GameState) -> None:
+    """
+    Функция для вывода информации о текущей комнате.
+
+    :param game_state: текущее состояние игры.
+    :return: None.
+    """
+    describe_current_room(game_state)

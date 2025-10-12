@@ -49,7 +49,8 @@ def _icy_floor_handler(game_state: GameState) -> None:
     info = (f"В потемках вы не заметили скользкого льда под ногами — "
             f"в следующее мгновение вы потеряли равновесие и резко ударились "
             f"головой о пол.\n"
-            f"\tВы потеряли {lost_hp} единиц здоровья.")
+            f"\tВы потеряли {lost_hp} единиц здоровья. "
+            f"Текущее здоровье: {game_state.player.hp}")
     if lost_item:
         info += f"\n\tИз вашей сумки выпал {lost_item.value}"
         current_room: RoomSchema = get_room(game_state)
@@ -67,7 +68,8 @@ def _poison_dart_handler(game_state: GameState) -> None:
     lost_hp: int = _get_injury(game_state, 5)
     print(f"Внезапно из стены с шипением вылетел пучок ядовитых дротиков — "
           f"время замедлилось, пока они летели прямо к вам.\n"
-          f"\tВы потеряли {lost_hp} единиц здоровья.")
+          f"\tВы потеряли {lost_hp} единиц здоровья. "
+          f"Текущее здоровье: {game_state.player.hp}")
 
 
 def _slime_pit_handler(game_state: GameState) -> None:
@@ -81,7 +83,8 @@ def _slime_pit_handler(game_state: GameState) -> None:
     lost_item: Items | None = _inventory_lost(game_state)
     info = (f"Вы оступились, и в следующее мгновение — беззвучно и внезапно — "
             f"провалились в яму, заполненную липкой, холодной слизью.\n"
-            f"\tВы потеряли {lost_hp} единиц здоровья.")
+            f"\tВы потеряли {lost_hp} единиц здоровья. "
+            f"Текущее здоровье: {game_state.player.hp}")
     if lost_item:
         info += (f"\n\tПока Вы выбирались из вязкой слизи, из Вышей сумки "
                  f"выпало {lost_item.value}")

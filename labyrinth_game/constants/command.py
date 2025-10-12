@@ -5,6 +5,7 @@ class Commands(Enum):
     """
     Список команд
     """
+    look_around = "look around"
     inventory = "inventory"
     solve = "solve"
     go = "go"
