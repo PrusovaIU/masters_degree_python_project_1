@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.inventory import Inventory
+from labyrinth_game.constants.direction import Directions
+from labyrinth_game.exceptions import GetNextRoomException
 
 from .room import RoomSchema
 
@@ -54,3 +56,20 @@ def get_room(game_state: GameState) -> RoomSchema:
     """
     current_room_name: Rooms = game_state.current_room
     return ROOMS[current_room_name]
+
+
+def get_next_room(
+        current_room: RoomSchema,
+        direction_name: str
+) -> tuple[Rooms, RoomSchema]:
+    """"""
+    try:
+        direction = Directions(direction_name)
+        next_room_name = current_room.exits[direction]
+        return next_room_name, ROOMS[next_room_name]
+    except ValueError:
+        print("Неизвестное направление")
+        raise GetNextRoomException(direction_name)
+    except KeyError:
+        print("Вы не можете пойти в эту сторону")
+        raise GetNextRoomException(direction_name)

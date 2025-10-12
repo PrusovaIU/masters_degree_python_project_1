@@ -3,6 +3,7 @@ from time import time_ns
 
 from labyrinth_game.constants.item import Items
 from labyrinth_game.constants.room import Rooms
+from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.constants.trap import Traps
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import RoomSchema
@@ -106,7 +107,10 @@ def _ghost_handler(game_state: GameState) -> None:
             f"направлении.")
     if lost_item:
         info += f"\n\tПока Вы бежали, из Вышей сумки выпало {lost_item.value}"
-    rooms = [room for room in Rooms if room != game_state.current_room]
+    rooms = [
+        room for room in Rooms
+        if room != game_state.current_room and not ROOMS[room].lock
+    ]
     room_id: int = pseudo_random(time_ns(), len(rooms))
     game_state.current_room = rooms[room_id]
     print(info)

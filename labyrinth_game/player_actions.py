@@ -3,6 +3,7 @@ from collections import Counter
 from labyrinth_game.constants.direction import Directions
 from labyrinth_game.constants.item import Items
 from labyrinth_game.constants.room import Rooms
+from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.environment_actions import random_event
 from labyrinth_game.exceptions import DeadException, ExitException
 from labyrinth_game.inventory import add_item_to_inventory
@@ -45,17 +46,22 @@ def move(
 
     :raises DeadException: если игрок умер.
     """
-    current_room: RoomSchema = get_room(game_state)
-    direction = Directions(direction_name)
-    try:
-        game_state.current_room = current_room.exits[direction]
+
+    finally:
+        return
+
+    next_room: RoomSchema = ROOMS[next_room_name]
+    if not (next_room.lock is None
+            or next_room.lock in game_state.player.inventory):
+        game_state.current_room = next_room_name
         game_state.steps_taken += 1
         random_event(game_state)
         if game_state.player.hp <= 0:
             raise DeadException("Вы умерли!")
         describe_current_room(game_state)
-    except KeyError:
-        print("Вы не можете пойти в эту сторону")
+    else:
+        print("Вы дергаете ручку двери, но дверь заперта.")
+
 
 
 def take(game_state: GameState, item_name: str) -> None:
@@ -67,13 +73,13 @@ def take(game_state: GameState, item_name: str) -> None:
     :return: None.
     """
     current_room: RoomSchema = get_room(game_state)
-    item = Items(item_name)
     try:
+        item = Items(item_name)
         idx = current_room.items.index(item)
         if add_item_to_inventory(item, game_state.player.inventory):
             current_room.items.pop(idx)
     except ValueError:
-        print("Такого предмета здесь нет.")
+        print("Неизвестный предмет.")
 
 
 def use(game_state: GameState, item_name: str) -> None:

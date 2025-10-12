@@ -5,3 +5,7 @@ class ExitException(Exception):
 
 class DeadException(Exception):
     pass
+
+
+class GetNextRoomException(Exception):
+    pass

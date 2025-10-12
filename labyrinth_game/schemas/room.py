@@ -11,8 +11,15 @@ class RoomSchema:
     """
     Описание комнаты
     """
+    # текстовое описание комнаты:
     description: str
+    # список выходов из комнаты:
     exits: dict[Directions, Rooms]
+    # список предметов в комнате:
     items: list[Items]
+    # загадка в комнате, если есть:
     puzzle: Puzzle | None
+    # наличие ловушки в комнате:
     trap: bool
+    # предмет, которым отрывается комната. Если None, то комната не заперта:
+    lock: Items | None
