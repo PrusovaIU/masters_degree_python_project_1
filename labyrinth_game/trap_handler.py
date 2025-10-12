@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from time import time_ns
 
 from labyrinth_game.constants.item import Items
 from labyrinth_game.constants.room import Rooms
@@ -6,7 +7,6 @@ from labyrinth_game.constants.trap import Traps
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import RoomSchema
 from labyrinth_game.utils import pseudo_random
-from time import time_ns
 
 
 def _inventory_lost(game_state: GameState) -> Items | None:

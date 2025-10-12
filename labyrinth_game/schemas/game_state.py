@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
+from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.inventory import Inventory
 
-from ..constants.room import Rooms
 from .room import RoomSchema
 
 
@@ -28,6 +28,11 @@ class GameState:
 
 
 def initial_state() -> GameState:
+    """
+    Инициализировать состояние игры.
+
+    :return: начальное состояние игры.
+    """
     player = Player(
         inventory=[],
         hp=30

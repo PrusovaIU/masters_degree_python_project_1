@@ -1,7 +1,7 @@
 from typing import Any, Callable
 
-from labyrinth_game.constants.command import Commands
 from labyrinth_game import player_actions
+from labyrinth_game.constants.command import Commands
 from labyrinth_game.schemas.game_state import GameState
 
 COMMANDS_HELP = {

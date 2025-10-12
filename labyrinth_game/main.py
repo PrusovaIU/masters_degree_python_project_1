@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from labyrinth_game.commands_handlers import get_input
-from labyrinth_game.exceptions import ExitException, DeadException
+from labyrinth_game.exceptions import DeadException, ExitException
 from labyrinth_game.rooms_functional import describe_current_room
 from labyrinth_game.schemas.game_state import GameState, initial_state
 

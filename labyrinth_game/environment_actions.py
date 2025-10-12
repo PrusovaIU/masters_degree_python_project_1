@@ -1,10 +1,11 @@
+from time import time_ns
+
+from labyrinth_game.constants.item import Items
+from labyrinth_game.constants.trap import Traps
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import RoomSchema
-from labyrinth_game.utils import pseudo_random
-from labyrinth_game.constants.item import Items
 from labyrinth_game.trap_handler import trigger_trap
-from labyrinth_game.constants.trap import Traps
-from time import time_ns
+from labyrinth_game.utils import pseudo_random
 
 
 def _find_coin(game_state: GameState) -> None:
