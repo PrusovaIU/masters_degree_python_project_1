@@ -4,6 +4,7 @@ from labyrinth_game.utils import pseudo_random
 from labyrinth_game.constants.item import Items
 from labyrinth_game.trap_handler import trigger_trap
 from labyrinth_game.constants.trap import Traps
+from time import time_ns
 
 
 def _find_coin(game_state: GameState) -> None:
@@ -43,7 +44,7 @@ def _trap(game_state: GameState) -> None:
     current_room: RoomSchema = get_room(game_state)
     if current_room.trap and Items.torch not in game_state.player.inventory:
         traps = list(Traps)
-        trap_id: int = pseudo_random(game_state.steps_taken, len(traps))
+        trap_id: int = pseudo_random(time_ns(), len(traps))
         trigger_trap(game_state, traps[trap_id])
 
 
@@ -54,11 +55,11 @@ def random_event(game_state: GameState) -> None:
     :param game_state: текущее состояние игры.
     :return: None.
     """
-    is_action: int = pseudo_random(game_state.steps_taken, 3)
+    is_action: int = pseudo_random(time_ns(), 3)
     match is_action:
         case 1:
-            _find_coin(game_state)
-        case 2:
             _fright(game_state)
+        case 2:
+            _find_coin(game_state)
         case 3:
             _trap(game_state)

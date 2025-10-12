@@ -6,6 +6,7 @@ from labyrinth_game.constants.trap import Traps
 from labyrinth_game.schemas.game_state import GameState, get_room
 from labyrinth_game.schemas.room import RoomSchema
 from labyrinth_game.utils import pseudo_random
+from time import time_ns
 
 
 def _inventory_lost(game_state: GameState) -> Items | None:
@@ -19,7 +20,7 @@ def _inventory_lost(game_state: GameState) -> Items | None:
     item: Items | None = None
     if game_state.player.inventory:
         item_id: int = pseudo_random(
-            game_state.steps_taken,
+            time_ns(),
             len(game_state.player.inventory)
         )
         item = game_state.player.inventory.pop(item_id)
@@ -33,7 +34,7 @@ def _get_injury(game_state: GameState, modulo: int) -> int:
     :param game_state: текующее состояние игры.
     :return: количество потерянных единиц здоровья.
     """
-    lost_hp: int = pseudo_random(game_state.steps_taken, modulo)
+    lost_hp: int = pseudo_random(time_ns(), modulo)
     game_state.player.hp -= lost_hp
     return lost_hp
 
@@ -100,13 +101,15 @@ def _ghost_handler(game_state: GameState) -> None:
     """
     lost_item: Items | None = _inventory_lost(game_state)
     info = (f"Из стены неожиданно вышел призрак — его глаза сверкали, а "
-            f"голос эхом раздался в голове. Поддавшись ужасу, вы бросились "
-            f"в бегство, не заботясь о направлении\n")
+            f"голос эхом раздался в голове.\n"
+            f"Поддавшись ужасу, вы бросились в бегство, не заботясь о "
+            f"направлении.")
     if lost_item:
         info += f"\n\tПока Вы бежали, из Вышей сумки выпало {lost_item.value}"
     rooms = [room for room in Rooms if room != game_state.current_room]
-    room_id: int = pseudo_random(game_state.steps_taken, len(rooms))
+    room_id: int = pseudo_random(time_ns(), len(rooms))
     game_state.current_room = rooms[room_id]
+    print(info)
 
 
 def _lost_trap_handler(game_state: GameState) -> None:
