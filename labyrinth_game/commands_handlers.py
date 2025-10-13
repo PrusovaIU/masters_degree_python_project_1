@@ -92,12 +92,9 @@ def get_input(game_state: GameState, promt: str="> ") -> None:
     :return: None.
     """
     try:
-        result = False
-        while not result:
-            command = input(promt)
-            if command:
-                process_command(game_state, command)
-                result = True
+        command = input(promt)
+        if command:
+            process_command(game_state, command)
     except ValueError as err:
         print(f"{err}. Используйте help для получения списка команд.")
     except KeyError:
