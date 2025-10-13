@@ -10,7 +10,7 @@ from labyrinth_game.inventory import add_item_to_inventory
 from labyrinth_game.item_use_handlers import (USE_ITEMS_HANDLERS,
                                               UseItemHandlerType)
 from labyrinth_game.rooms_functional import describe_current_room
-from labyrinth_game.schemas.game_state import GameState, get_room
+from labyrinth_game.schemas.game_state import GameState, get_room, get_next_room
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from labyrinth_game.schemas.room import RoomSchema
 
@@ -46,22 +46,21 @@ def move(
 
     :raises DeadException: если игрок умер.
     """
-
-    finally:
-        return
-
-    next_room: RoomSchema = ROOMS[next_room_name]
-    if not (next_room.lock is None
-            or next_room.lock in game_state.player.inventory):
-        game_state.current_room = next_room_name
-        game_state.steps_taken += 1
-        random_event(game_state)
-        if game_state.player.hp <= 0:
-            raise DeadException("Вы умерли!")
-        describe_current_room(game_state)
+    try:
+        next_room_name, next_room = get_next_room(game_state, direction_name)
+    except (ValueError, KeyError) as err:
+        print(err)
     else:
-        print("Вы дергаете ручку двери, но дверь заперта.")
-
+        if not (next_room.lock is None
+                or next_room.lock in game_state.player.inventory):
+            game_state.current_room = next_room_name
+            game_state.steps_taken += 1
+            random_event(game_state)
+            if game_state.player.hp <= 0:
+                raise DeadException("Вы умерли!")
+            describe_current_room(game_state)
+        else:
+            print("Вы дергаете ручку двери, но дверь заперта.")
 
 
 def take(game_state: GameState, item_name: str) -> None:

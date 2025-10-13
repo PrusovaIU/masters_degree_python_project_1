@@ -59,11 +59,18 @@ def get_room(game_state: GameState) -> RoomSchema:
 
 
 def get_next_room(
-        current_room: RoomSchema,
+        game_state: GameState,
         direction_name: str
 ) -> tuple[Rooms, RoomSchema]:
-    """"""
+    """
+    Получить следующую комнату из состояния игры.
+
+    :param game_state: текущее состояние игры.
+    :param direction_name: имя направления.
+    :return:
+    """
     try:
+        current_room = get_room(game_state)
         direction = Directions(direction_name)
         next_room_name = current_room.exits[direction]
         return next_room_name, ROOMS[next_room_name]
