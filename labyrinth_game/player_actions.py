@@ -52,7 +52,7 @@ def move(
         print(err)
     else:
         if not (next_room.lock is None
-                or next_room.lock in game_state.player.inventory):
+                and next_room.lock in game_state.player.inventory):
             game_state.current_room = next_room_name
             game_state.steps_taken += 1
             random_event(game_state)

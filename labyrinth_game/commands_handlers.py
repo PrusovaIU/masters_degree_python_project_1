@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import Any, Callable
 
 from labyrinth_game import player_actions
@@ -30,7 +31,13 @@ def _help(_: GameState) -> None:
         print(f"\t{command.value} - {description}")
 
 
-SIMPLE_COMMANDS_HANDLERS: dict[Commands | Directions, Callable[[GameState], None]] = {
+def _commands_handlers(
+        handlers: dict[Enum, Callable[[GameState], None]]
+) -> dict[str, Callable[[GameState], None]]:
+    return {command.value: handler for command, handler in handlers.items()}
+
+
+SIMPLE_COMMANDS_HANDLERS: dict[str, Callable[[GameState], None]] = _commands_handlers({
     Commands.exit: player_actions.game_exit,
     Commands.look_around: player_actions.look_around,
     Commands.inventory: player_actions.show_inventory,
@@ -40,13 +47,13 @@ SIMPLE_COMMANDS_HANDLERS: dict[Commands | Directions, Callable[[GameState], None
         direction: partial(player_actions.move, direction_name=direction.value)
         for direction in Directions
     }
-}
-COMMAND_HANDLERS: dict[Commands, Callable[[GameState, Any], None]] = {
+})
+COMMAND_HANDLERS: dict[str, Callable[[GameState, Any], None]] = _commands_handlers({
     Commands.go: player_actions.move,
     Commands.use: player_actions.use,
     Commands.solve: player_actions.solve,
     Commands.take: player_actions.take,
-}
+})
 
 
 def process_command(game_state: GameState, command: str) -> None:
@@ -56,22 +63,23 @@ def process_command(game_state: GameState, command: str) -> None:
     :param game_state: состояние игры.
     :param command: команда.
     :return: None.
+
+    :raises ValueError: если команда не распознана.
     """
     command, _, args = command.partition(" ")
-    command = Commands(command) \
-        if command in list(Commands) \
-        else Directions(command)
     if command in SIMPLE_COMMANDS_HANDLERS:
         command_handler: Callable[[GameState], None] = \
             SIMPLE_COMMANDS_HANDLERS[command]
         command_handler(game_state)
     elif not args:
         print(f"Укажите объект. Например, {Commands.use.value} coin")
-    else:
+    elif command in COMMAND_HANDLERS:
         args = args.strip().lower()
         command_handler: Callable[[GameState, Any], None] = \
             COMMAND_HANDLERS[command]
         command_handler(game_state, args)
+    else:
+        raise ValueError("Unknown command")
 
 
 def get_input(game_state: GameState, promt: str="> ") -> None:
