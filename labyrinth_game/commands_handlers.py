@@ -2,33 +2,16 @@ from enum import Enum
 from typing import Any, Callable
 
 from labyrinth_game import player_actions
-from labyrinth_game.constants.command import Commands
+from labyrinth_game.constants.command import Commands, COMMANDS_HELP
 from labyrinth_game.schemas.game_state import GameState
 from labyrinth_game.constants.direction import Directions
 from functools import partial
 
 
-COMMANDS_HELP = {
-    Commands.look_around: "Осмотреться",
-    Commands.inventory: "Показать инвентарь",
-    Commands.solve: "Решить загадку",
-    Commands.go: "Переместиться в указанную комнату",
-    Commands.use: "Использовать предмет",
-    Commands.take: "Взять предмет",
-    Commands.exit: "Выход из игры",
-    Directions.north: "Переместиться на север",
-    Directions.south: "Переместиться на юг",
-    Directions.west: "Переместиться на запад",
-    Directions.east: "Переместиться на восток",
-    Directions.up: "Переместиться вверх",
-    Directions.down: "Переместиться вниз"
-}
-
-
 def _help(_: GameState) -> None:
     print("Доступные команды:")
     for command, description in COMMANDS_HELP.items():
-        print(f"\t{command.value} - {description}")
+        print(f"\t{command} - {description}")
 
 
 def _commands_handlers(
