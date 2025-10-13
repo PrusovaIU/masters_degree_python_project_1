@@ -5,7 +5,7 @@ from labyrinth_game.constants.item import Items
 
 class Puzzle(NamedTuple):
     text: str
-    answer: str
+    answer: tuple[str, ...]
     prize: Items | None
 
 
@@ -19,7 +19,7 @@ def solve_puzzle(puzzle: Puzzle) -> tuple[bool, Items | None]:
     print(f"Перед Вами загадка:\n"
           f"{puzzle.text}\n")
     answer: str = input("Ваш ответ: ").strip().lower()
-    if answer == puzzle.answer:
+    if answer in puzzle.answer:
         info = "Правильно!"
         prize = puzzle.prize
         if prize:

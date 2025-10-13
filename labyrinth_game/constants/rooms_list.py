@@ -28,8 +28,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
         items=[],
         puzzle=Puzzle(
             text='На пьедестале надпись: "Назовите число, которое идет после '
-                 'девяти". Введите ответ цифрой.',
-            answer='10',
+                 'девяти". Введите ответ числом или строкой.',
+            answer=('10', 'десять'),
             prize=Items.gold_coin
         ),
         trap=False,
@@ -46,7 +46,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='Система плит активна. Чтобы пройти, назовите слово "шаг" '
                 'три раза подряд (введите "шаг шаг шаг")',
-            answer='шаг шаг шаг',
+            answer=('шаг шаг шаг',),
             prize=None
         ),
         trap=True,
@@ -63,7 +63,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='В одном свитке загадка: "Что растет, когда его съедают?" '
                  '(ответ одно слово)',
-            answer='резонанс',
+            answer=('резонанс',),
             prize=Items.gold_coin
         ),
         trap=True,
@@ -85,7 +85,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='Дверь защищена кодом. Введите код '
             '(подсказка: это число пятикратного шага, 2*5= ? )',
-            answer='10',
+            answer=('10', 'десять'),
             prize=Items.gold_coin
         ),
         trap=True,
@@ -102,7 +102,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='Портал открывается только если вы скажете слово "свет" задом '
                  'наперёд (введите его)',
-            answer='тевс',
+            answer=('тевс',),
             prize=Items.gold_coin
         ),
         trap=False,
@@ -115,7 +115,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='На стене надпись: "Я не существую, но меня можно увидеть. '
                  'Что я?" (ответ одно слово)',
-            answer='тень',
+            answer=('тень',),
             prize=None
         ),
         trap=False,
@@ -131,7 +131,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='На стене надпись: "Я всегда рядом, но меня не увидишь. '
                  'Что я?" (ответ одно слово)',
-            answer='звук',
+            answer=('звук',),
             prize=None
         ),
         trap=True,
@@ -144,7 +144,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         puzzle=Puzzle(
             text='На стене вырезан вопрос: "Что может говорить без голоса, '
                  'путешествовать без ног и быть видимым в зеркале?"',
-            answer='отражение',
+            answer=('отражение',),
             prize=Items.gold_coin
         ),
         trap=True,

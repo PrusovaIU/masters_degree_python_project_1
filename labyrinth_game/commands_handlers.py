@@ -1,11 +1,11 @@
 from enum import Enum
+from functools import partial
 from typing import Any, Callable
 
 from labyrinth_game import player_actions
-from labyrinth_game.constants.command import Commands, COMMANDS_HELP
-from labyrinth_game.schemas.game_state import GameState
+from labyrinth_game.constants.command import COMMANDS_HELP, Commands
 from labyrinth_game.constants.direction import Directions
-from functools import partial
+from labyrinth_game.schemas.game_state import GameState
 
 
 def _help(_: GameState) -> None:

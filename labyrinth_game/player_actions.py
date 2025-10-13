@@ -10,7 +10,8 @@ from labyrinth_game.inventory import add_item_to_inventory
 from labyrinth_game.item_use_handlers import (USE_ITEMS_HANDLERS,
                                               UseItemHandlerType)
 from labyrinth_game.rooms_functional import describe_current_room
-from labyrinth_game.schemas.game_state import GameState, get_room, get_next_room
+from labyrinth_game.schemas.game_state import (GameState, get_next_room,
+                                               get_room)
 from labyrinth_game.schemas.puzzle import solve_puzzle
 from labyrinth_game.schemas.room import RoomSchema
 

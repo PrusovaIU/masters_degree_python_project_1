@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
+from labyrinth_game.constants.direction import Directions
 from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.rooms_list import ROOMS
-from labyrinth_game.inventory import Inventory
-from labyrinth_game.constants.direction import Directions
 from labyrinth_game.exceptions import GetNextRoomException
+from labyrinth_game.inventory import Inventory
 
 from .room import RoomSchema
 
