@@ -52,8 +52,8 @@ def move(
     except (ValueError, KeyError) as err:
         print(err)
     else:
-        if not (next_room.lock is None
-                and next_room.lock in game_state.player.inventory):
+        if (next_room.lock is None
+                or next_room.lock in game_state.player.inventory):
             game_state.current_room = next_room_name
             game_state.steps_taken += 1
             random_event(game_state)
