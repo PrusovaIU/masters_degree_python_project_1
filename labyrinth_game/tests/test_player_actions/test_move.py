@@ -4,29 +4,10 @@ import pytest
 from unittest.mock import patch, Mock
 from collections.abc import Generator
 from labyrinth_game import player_actions
-from labyrinth_game.schemas.room import RoomSchema
 from labyrinth_game.constants.item import Items
 from labyrinth_game.exceptions import DeadException
-
-
-@pytest.fixture
-def mock_get_next_room() -> Generator[Mock, None, None]:
-    """
-    Патч функции get_next_room.
-
-    :return: мок.
-    """
-    with patch.object(player_actions, "get_next_room") as mock:
-        yield mock
-
-
-@pytest.fixture
-def mock_room_schema() -> Mock:
-    """
-    :return: мок RoomSchema.
-    """
-    mock = Mock(spec=RoomSchema)
-    return mock
+from labyrinth_game.tests.test_player_actions.conftest import \
+    mock_get_next_room, mock_room_schema
 
 
 @pytest.fixture

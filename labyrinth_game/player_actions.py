@@ -72,9 +72,9 @@ def take(game_state: GameState, item_name: str) -> None:
     :param item_name: имя предмета.
     :return: None.
     """
-    current_room: RoomSchema = get_room(game_state)
     try:
         item = Items(item_name)
+        current_room: RoomSchema = get_room(game_state)
         idx = current_room.items.index(item)
         if add_item_to_inventory(item, game_state.player.inventory):
             current_room.items.pop(idx)
