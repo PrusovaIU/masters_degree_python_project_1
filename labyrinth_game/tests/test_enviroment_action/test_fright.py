@@ -4,8 +4,7 @@ from labyrinth_game import environment_actions
 from collections.abc import Generator
 import pytest
 
-from labyrinth_game.tests.test_enviroment_action.conftest import \
-    mock_game_state
+from labyrinth_game.tests.conftest import mock_game_state
 
 
 @pytest.fixture

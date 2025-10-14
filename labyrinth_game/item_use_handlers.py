@@ -21,11 +21,11 @@ def _use_sword(game_state: GameState) -> None:
 
 def _use_bronze_box(game_state: GameState) -> None:
     if Items.rusty_key in game_state.player.inventory:
-        new_item = Items.rusty_key
+        new_item = Items.gold_coin
         game_state.player.inventory.append(new_item)
         print(f"Вы открыли бронзовую коробку и нашли: {new_item.value}")
     else:
-        print("Вы открываете бронзовую коробку, но ничего не находите.")
+        print("Бронзовая коробочка заперта.")
 
 
 def _use_treasure_key(game_state: GameState) -> None:
