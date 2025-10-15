@@ -5,7 +5,7 @@ from labyrinth_game.constants.item import Items
 from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.schemas.puzzle import solve_puzzle
+from labyrinth_game.solve_puzzle import solve_puzzle
 from labyrinth_game.utils import user_input
 
 UseItemHandlerType = Callable[[GameState], None]

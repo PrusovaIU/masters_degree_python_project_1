@@ -1,4 +1,5 @@
-from labyrinth_game.schemas.puzzle import solve_puzzle, Puzzle
+from labyrinth_game.schemas.puzzle import Puzzle
+from labyrinth_game.solve_puzzle import solve_puzzle
 from unittest.mock import patch
 from collections.abc import Generator
 from unittest.mock import Mock, patch

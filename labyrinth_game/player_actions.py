@@ -12,7 +12,7 @@ from labyrinth_game.item_use_handlers import (USE_ITEMS_HANDLERS,
 from labyrinth_game.rooms_functional import describe_current_room
 from labyrinth_game.schemas.game_state import (GameState, get_next_room,
                                                get_room)
-from labyrinth_game.schemas.puzzle import solve_puzzle
+from labyrinth_game.solve_puzzle import solve_puzzle
 from labyrinth_game.schemas.room import RoomSchema
 
 
@@ -121,13 +121,7 @@ def solve(game_state: GameState) -> None:
     """
     current_room: RoomSchema = get_room(game_state)
     if current_room.puzzle:
-        success, prize = solve_puzzle(current_room.puzzle)
-        if success:
-            game_state.player.inventory.append(prize)
-            current_room.puzzle = None
-            if game_state.current_room == Rooms.treasure_room:
-                print("Вы нашли сокровище!")
-                game_state.game_over = True
+        solve_puzzle(game_state, current_room)
     else:
         print("Загадок здесь нет.")
 
