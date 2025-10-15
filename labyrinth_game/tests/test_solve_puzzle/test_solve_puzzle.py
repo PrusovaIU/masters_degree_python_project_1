@@ -43,7 +43,7 @@ def test_solve_puzzle_success(
     :return: None.
     """
     prize = Items.treasure_key
-    mock_room_schema.puzzle = ("test_puzzle", prize)
+    mock_room_schema.puzzle = ("test_puzzle", "answer", prize)
     mock_get_answer.return_value = (True, prize)
 
     solve_puzzle.solve_puzzle(mock_game_state, mock_room_schema)
@@ -68,7 +68,7 @@ def test_solve_puzzle_fail(
     :param mock_room_schema: мок схемы комнаты.
     :return: None.
     """
-    mock_room_schema.puzzle = ("test_puzzle", None)
+    mock_room_schema.puzzle = ("test_puzzle", "answer", None)
     mock_get_answer.return_value = (False, None)
 
     solve_puzzle.solve_puzzle(mock_game_state, mock_room_schema)
