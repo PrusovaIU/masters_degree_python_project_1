@@ -1,6 +1,5 @@
 from labyrinth_game.schemas.puzzle import Puzzle
-from labyrinth_game.solve_puzzle import solve_puzzle
-from unittest.mock import patch
+from labyrinth_game.solve_puzzle import _get_answer
 from collections.abc import Generator
 from unittest.mock import Mock, patch
 from labyrinth_game.constants.item import Items
@@ -35,7 +34,7 @@ def test_solve_puzzle_correct_answer_with_prize(
     """
     puzzle = Puzzle(text="text", answer=("1", "one"), prize=prize)
     input_mock.return_value = answer
-    result, result_prize = solve_puzzle(puzzle)
+    result, result_prize = _get_answer(puzzle)
     assert result is True
     assert result_prize == prize
 
@@ -50,6 +49,6 @@ def test_solve_puzzle_incorrect_answer(
     """
     puzzle = Puzzle(text="text", answer=("answer",), prize=Items.gold_coin)
     input_mock.return_value = "incorrect"
-    result, prize = solve_puzzle(puzzle)
+    result, prize = _get_answer(puzzle)
     assert result is False
     assert prize is None
