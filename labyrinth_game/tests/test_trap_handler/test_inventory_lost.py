@@ -1,20 +1,7 @@
-from collections.abc import Generator
-
-import pytest
 from labyrinth_game import trap_handler
-from unittest.mock import patch, Mock
+from unittest.mock import Mock
 from labyrinth_game.constants.item import Items
-
-
-@pytest.fixture
-def mock_pseudo_random() -> Generator[Mock, None, None]:
-    """
-    Патч функции pseudo_random.
-
-    :return: мок.
-    """
-    with patch.object(trap_handler, "pseudo_random") as mock:
-        yield mock
+from labyrinth_game.tests.conftest import mock_pseudo_random
 
 
 def test_inventory_lost_from_empty_inventory(
