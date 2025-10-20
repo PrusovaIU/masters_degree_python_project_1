@@ -54,7 +54,7 @@ def _check_move_to_room(next_room: RoomSchema, game_state: GameState) -> bool:
         result = True
     elif next_room.lock in game_state.player.inventory:
         promt = (f"Дверь заперта, но в вашем инвентаре есть "
-                 f"ключ {next_room.lock.value}. Открыть дверь? (y/n): ")
+                 f"ключ {next_room.lock.value}. Открыть дверь?")
         open_lock: str = user_input(promt, ["y", "n"])
         if open_lock == "y":
             game_state.player.inventory.remove(next_room.lock)

@@ -101,8 +101,8 @@ def _ghost_handler(game_state: GameState) -> None:
     :return: None.
     """
     lost_item: Items | None = _inventory_lost(game_state)
-    info = ("Из стены неожиданно вышел призрак — его глаза сверкали, а "
-            "голос эхом раздался в голове.\n"
+    info = ("Вы входите в комнату, но внезапно перед Вами появился "
+            "призрак — его глаза сверкали, а голос эхом раздался в голове.\n"
             "Поддавшись ужасу, вы бросились в бегство, не заботясь о "
             "направлении.")
     current_room: RoomSchema = get_room(game_state)
