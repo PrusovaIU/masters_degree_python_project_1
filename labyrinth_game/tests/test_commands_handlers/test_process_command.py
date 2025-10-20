@@ -1,13 +1,12 @@
 from collections.abc import Generator
+from contextlib import contextmanager
+from unittest.mock import Mock
 
 import pytest
-from unittest.mock import patch, Mock
-from labyrinth_game import player_actions
-from labyrinth_game.constants.command import Commands
-from labyrinth_game.constants.direction import Directions
-from labyrinth_game.schemas.game_state import GameState
+
 from labyrinth_game import commands_handlers
-from contextlib import contextmanager
+from labyrinth_game.constants.command import Commands
+from labyrinth_game.schemas.game_state import GameState
 
 
 @pytest.fixture
@@ -42,7 +41,7 @@ def patch_commands_handlers(
         "SIMPLE_COMMANDS_HANDLERS",
         id="simple_command"
     ),
-    pytest.param(Commands.go,"args", "COMMAND_HANDLERS", id="command")
+    pytest.param(Commands.go, "args", "COMMAND_HANDLERS", id="command")
 ])
 def test_command(
         mock_game_state: Mock,

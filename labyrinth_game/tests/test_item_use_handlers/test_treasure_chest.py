@@ -1,9 +1,11 @@
-import pytest
-from unittest.mock import Mock, patch
-from labyrinth_game.schemas.game_state import GameState
 from collections.abc import Generator
+from unittest.mock import Mock, patch
+
+import pytest
+
 from labyrinth_game import item_use_handlers
 from labyrinth_game.constants.item import Items
+from labyrinth_game.schemas.game_state import GameState
 
 
 @pytest.fixture

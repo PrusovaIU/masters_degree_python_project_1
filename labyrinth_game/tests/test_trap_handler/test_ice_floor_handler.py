@@ -1,10 +1,8 @@
-import pytest
+from unittest.mock import Mock
 
-from labyrinth_game.trap_handler import _icy_floor_handler
-from unittest.mock import patch, Mock
-from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.item import Items
-
+from labyrinth_game.constants.room import Rooms
+from labyrinth_game.trap_handler import _icy_floor_handler
 
 
 def test_icy_floor_handler_only_injury(

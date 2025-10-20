@@ -1,7 +1,8 @@
 from collections.abc import Generator
+from unittest.mock import Mock, patch
 
 import pytest
-from unittest.mock import patch, Mock
+
 from labyrinth_game import player_actions
 
 

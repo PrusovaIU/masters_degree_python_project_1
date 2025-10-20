@@ -1,12 +1,11 @@
 from enum import Enum
 from functools import partial
-from typing import Any, Callable
+from typing import Any, Callable, TypeVar
 
 from labyrinth_game import player_actions
 from labyrinth_game.constants.command import COMMANDS_HELP, Commands
 from labyrinth_game.constants.direction import Directions
 from labyrinth_game.schemas.game_state import GameState
-from typing import TypeVar
 
 
 def _help(_: GameState) -> None:
@@ -46,13 +45,15 @@ SIMPLE_COMMANDS_HANDLERS: dict[str, Callable[[GameState], None]] = \
             )
             for direction in Directions
         }
-})
+    }
+)
 COMMAND_HANDLERS: dict[str, Callable[[GameState, Any], None]] = \
     _commands_handlers({
         Commands.go: player_actions.move,
         Commands.use: player_actions.use,
         Commands.take: player_actions.take
-})
+    }
+)
 
 
 def process_command(game_state: GameState, command: str) -> None:
@@ -83,7 +84,7 @@ def process_command(game_state: GameState, command: str) -> None:
         raise ValueError("Неизвестная команда.")
 
 
-def get_input(game_state: GameState, promt: str="> ") -> None:
+def get_input(game_state: GameState, promt: str = "> ") -> None:
     """
     Функция для получения ввода пользователя.
 

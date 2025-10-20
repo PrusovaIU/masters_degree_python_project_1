@@ -1,8 +1,8 @@
 from labyrinth_game.constants.item import Items
+from labyrinth_game.constants.room import Rooms
+from labyrinth_game.schemas.game_state import GameState
 from labyrinth_game.schemas.puzzle import Puzzle
 from labyrinth_game.schemas.room import RoomSchema
-from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.constants.room import Rooms
 
 
 def _get_answer(puzzle: Puzzle) -> tuple[bool, Items | None]:
@@ -66,4 +66,3 @@ def solve_puzzle(
     if success:
         current_room.puzzle = None
         _get_prize(game_state, prize)
-

@@ -1,14 +1,12 @@
+from collections.abc import Generator
 from typing import Optional
+from unittest.mock import Mock, patch
 
 import pytest
-from unittest.mock import patch, Mock
-from collections.abc import Generator
+
 from labyrinth_game import player_actions
 from labyrinth_game.constants.item import Items
 from labyrinth_game.exceptions import DeadException
-from labyrinth_game.tests.test_player_actions.conftest import \
-    mock_get_next_room
-from labyrinth_game.tests.conftest import mock_room_schema
 
 
 @pytest.fixture
@@ -33,6 +31,7 @@ def mock_random_event() -> Generator[Mock, None, None]:
     """
     with patch.object(player_actions, "random_event") as mock:
         yield mock
+
 
 @pytest.mark.parametrize("lock", [
     pytest.param(None, id="no_lock"),

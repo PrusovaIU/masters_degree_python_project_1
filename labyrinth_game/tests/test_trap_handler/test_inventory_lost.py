@@ -1,7 +1,7 @@
-from labyrinth_game import trap_handler
 from unittest.mock import Mock
+
+from labyrinth_game import trap_handler
 from labyrinth_game.constants.item import Items
-from labyrinth_game.tests.conftest import mock_pseudo_random
 
 
 def test_inventory_lost_from_empty_inventory(

@@ -16,7 +16,7 @@ def _find_coin(game_state: GameState) -> None:
     :return: None.
     """
     game_state.player.inventory.append(Items.gold_coin)
-    print(f"Вам улыбнулась удача! Вы нашли золотой монетку.")
+    print("Вам улыбнулась удача! Вы нашли золотой монетку.")
 
 
 def _fright(game_state: GameState) -> None:

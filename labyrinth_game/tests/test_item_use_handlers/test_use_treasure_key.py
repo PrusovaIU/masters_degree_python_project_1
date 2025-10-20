@@ -1,8 +1,6 @@
-import pytest
-from unittest.mock import Mock
-from labyrinth_game.schemas.game_state import GameState
-from labyrinth_game.item_use_handlers import _use_treasure_key
 from labyrinth_game.constants.room import Rooms
+from labyrinth_game.item_use_handlers import _use_treasure_key
+from labyrinth_game.schemas.game_state import GameState
 
 
 def test_use_treasure_key_not_in_treasure_room(

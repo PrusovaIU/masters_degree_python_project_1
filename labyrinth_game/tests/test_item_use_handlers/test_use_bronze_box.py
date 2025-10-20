@@ -1,4 +1,5 @@
 from unittest.mock import Mock
+
 from labyrinth_game.constants.item import Items
 from labyrinth_game.item_use_handlers import _use_bronze_box
 

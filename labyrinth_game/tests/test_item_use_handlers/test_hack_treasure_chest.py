@@ -1,6 +1,8 @@
-import pytest
-from unittest.mock import Mock, patch
 from collections.abc import Generator
+from unittest.mock import Mock, patch
+
+import pytest
+
 from labyrinth_game import item_use_handlers
 
 

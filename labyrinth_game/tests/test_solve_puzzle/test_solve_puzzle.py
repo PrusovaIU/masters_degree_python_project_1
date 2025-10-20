@@ -1,7 +1,9 @@
-import pytest
-from labyrinth_game import solve_puzzle
-from unittest.mock import patch, Mock
 from collections.abc import Generator
+from unittest.mock import Mock, patch
+
+import pytest
+
+from labyrinth_game import solve_puzzle
 from labyrinth_game.constants.item import Items
 
 

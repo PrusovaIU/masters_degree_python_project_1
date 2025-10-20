@@ -1,7 +1,7 @@
 from unittest.mock import Mock
-from labyrinth_game.player_actions import show_inventory
-from labyrinth_game.constants.item import Items
 
+from labyrinth_game.constants.item import Items
+from labyrinth_game.player_actions import show_inventory
 
 
 def test_show_inventory_empty(capfd, mock_game_state: Mock):

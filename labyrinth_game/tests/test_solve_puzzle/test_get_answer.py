@@ -1,9 +1,11 @@
-from labyrinth_game.schemas.puzzle import Puzzle
-from labyrinth_game.solve_puzzle import _get_answer
 from collections.abc import Generator
 from unittest.mock import Mock, patch
-from labyrinth_game.constants.item import Items
+
 import pytest
+
+from labyrinth_game.constants.item import Items
+from labyrinth_game.schemas.puzzle import Puzzle
+from labyrinth_game.solve_puzzle import _get_answer
 
 
 @pytest.fixture

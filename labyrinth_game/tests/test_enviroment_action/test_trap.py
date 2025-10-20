@@ -1,8 +1,10 @@
+from collections.abc import Generator
+from unittest.mock import MagicMock, Mock, patch
+
 import pytest
+
 from labyrinth_game import environment_actions
 from labyrinth_game.constants.item import Items
-from unittest.mock import MagicMock, patch, Mock
-from collections.abc import Generator
 
 
 def test_trap_with_torch_in_inventory_does_nothing(
@@ -13,7 +15,7 @@ def test_trap_with_torch_in_inventory_does_nothing(
     """
     Тест для проверки, что при наличии факела в инвентаре, ловушка не
     инициируется.
-    
+
     :param mock_game_state: мок состояния игры.
     :param mock_get_room: мок метода get_room.
     :param mock_trigger_trap: мок метода trigger_trap.
@@ -59,7 +61,7 @@ def test_trap_without_torch_and_room_has_trap(
     current_room.trap = True
     mock_get_room.return_value = current_room
 
-    mock_pseudo_random.return_value=1
+    mock_pseudo_random.return_value = 1
 
     environment_actions._trap(mock_game_state)
 
@@ -89,7 +91,7 @@ def test_trap_without_torch_and_room_has_no_trap(
     current_room = MagicMock()
     current_room.trap = False
 
-    mock_get_room.return_value=current_room
+    mock_get_room.return_value = current_room
 
     environment_actions._trap(mock_game_state)
 

@@ -1,7 +1,9 @@
-from unittest.mock import patch, Mock
 from collections.abc import Generator
-from labyrinth_game import trap_handler
+from unittest.mock import Mock, patch
+
 from pytest import fixture
+
+from labyrinth_game import trap_handler
 
 
 @fixture
@@ -35,6 +37,7 @@ def mock_inventory_lost() -> Generator[Mock, None, None]:
     """
     with patch.object(trap_handler, "_inventory_lost") as mock:
         yield mock
+
 
 @fixture
 def mock_get_room() -> Generator[Mock, None, None]:

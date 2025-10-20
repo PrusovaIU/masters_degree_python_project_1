@@ -1,9 +1,8 @@
 from unittest.mock import Mock
 
-import pytest
-from labyrinth_game.solve_puzzle import _get_prize
-from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.item import Items
+from labyrinth_game.constants.room import Rooms
+from labyrinth_game.solve_puzzle import _get_prize
 
 
 def test_get_prize_with_prize(mock_game_state: Mock):

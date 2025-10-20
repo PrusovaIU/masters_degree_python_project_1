@@ -1,10 +1,10 @@
-from labyrinth_game.constants.item import Items
-from unittest.mock import MagicMock, patch, Mock
-from labyrinth_game import environment_actions
 from collections.abc import Generator
+from unittest.mock import MagicMock, Mock, patch
+
 import pytest
 
-from labyrinth_game.tests.conftest import mock_game_state
+from labyrinth_game import environment_actions
+from labyrinth_game.constants.item import Items
 
 
 @pytest.fixture

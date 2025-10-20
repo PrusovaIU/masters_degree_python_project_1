@@ -1,5 +1,5 @@
-from unittest.mock import Mock, patch
 from collections.abc import Generator
+from unittest.mock import Mock, patch
 
 import pytest
 

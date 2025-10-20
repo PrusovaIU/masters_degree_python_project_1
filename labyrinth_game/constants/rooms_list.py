@@ -45,7 +45,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         items=[Items.rusty_key],
         puzzle=Puzzle(
             text='Система плит активна. Чтобы пройти, назовите слово "шаг" '
-                'три раза подряд (введите "шаг шаг шаг")',
+                 'три раза подряд (введите "шаг шаг шаг")',
             answer=('шаг шаг шаг',),
             prize=None
         ),
@@ -79,7 +79,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
         lock=None
     ),
     Rooms.treasure_room: RoomSchema(
-        description='Комната, на столе большой сундук. Дверь заперта — нужен особый ключ.',
+        description='Комната, на столе большой сундук. '
+                    'Дверь заперта — нужен особый ключ.',
         exits={Directions.south: Rooms.hall},
         items=[Items.treasure_chest],
         puzzle=Puzzle(
@@ -100,8 +101,8 @@ ROOMS: dict[Rooms, RoomSchema] = {
         },
         items=[Items.broken_mirror_piece],
         puzzle=Puzzle(
-            text='Портал открывается только если вы скажете слово "свет" задом '
-                 'наперёд (введите его)',
+            text='Портал открывается только если вы скажете слово "свет" '
+                 'задом наперёд (введите его)',
             answer=('тевс',),
             prize=Items.gold_coin
         ),
@@ -109,11 +110,13 @@ ROOMS: dict[Rooms, RoomSchema] = {
         lock=None
     ),
     Rooms.illusion_corridor: RoomSchema(
-        description='Узкий коридор с иллюзией дверей. Кажется, здесь что-то спрятано.',
+        description='Узкий коридор с иллюзией дверей. '
+                    'Кажется, здесь что-то спрятано.',
         exits={Directions.east: Rooms.mirror_room},
         items=[Items.illusion_key],
         puzzle=Puzzle(
-            text='На стене надпись: "Я не существую, но меня можно увидеть. '
+            text='На стене надпись: "Я не существую, '
+                 'но меня можно увидеть. '
                  'Что я?" (ответ одно слово)',
             answer=('тень',),
             prize=None
@@ -122,7 +125,9 @@ ROOMS: dict[Rooms, RoomSchema] = {
         lock=None
     ),
     Rooms.basement: RoomSchema(
-        description='Холодный подвал с сырым каменным полом. В углу стоит старый грубый стол, на котором видны следы крови.',
+        description='Холодный подвал с сырым каменным полом. '
+                    'В углу стоит старый грубый стол, на котором видны '
+                    'следы крови.',
         exits={
             Directions.up: Rooms.trap_room,
             Directions.north: Rooms.torture_chamber
@@ -138,7 +143,9 @@ ROOMS: dict[Rooms, RoomSchema] = {
         lock=Items.illusion_key
     ),
     Rooms.torture_chamber: RoomSchema(  # Исправлено с "torture_chamber"
-        description='Пугающая пыточная комната. Здесь много железных инструментов, цепей и столов для допросов. Воздух тяжелый и мрачный.',
+        description='Пугающая пыточная комната. Здесь много железных '
+                    'инструментов, цепей и столов для допросов. '
+                    'Воздух тяжелый и мрачный.',
         exits={Directions.south: Rooms.basement},
         items=[Items.iron_hook, Items.broken_shackles, Items.treasure_key],
         puzzle=Puzzle(
