@@ -1,32 +1,20 @@
-from dataclasses import dataclass
+from dataclasses import make_dataclass
 
 from labyrinth_game.constants.direction import Directions
 from labyrinth_game.constants.room import Rooms
 from labyrinth_game.constants.rooms_list import ROOMS
 from labyrinth_game.exceptions import GetNextRoomException
-from labyrinth_game.inventory import Inventory
 
 from .room import RoomSchema
 
+Player = make_dataclass(
+    "Player",
+    ["inventory", "hp"])
 
-@dataclass
-class Player:
-    """
-    Описание состояния игрока
-    """
-    inventory: Inventory
-    hp: int
-
-
-@dataclass
-class GameState:
-    """
-    Состояние игры
-    """
-    player: Player
-    current_room: Rooms
-    game_over: bool
-    steps_taken: int
+GameState = make_dataclass(
+    "GameState",
+    ["player", "current_room", "game_over", "steps_taken"]
+)
 
 
 def initial_state() -> GameState:

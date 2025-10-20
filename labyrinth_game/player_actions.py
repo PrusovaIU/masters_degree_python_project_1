@@ -2,14 +2,22 @@ from collections import Counter
 
 from labyrinth_game.constants.item import Items
 from labyrinth_game.environment_actions import random_event
-from labyrinth_game.exceptions import (DeadException, ExitException,
-                                       GetNextRoomException)
+from labyrinth_game.exceptions import (
+    DeadException,
+    ExitException,
+    GetNextRoomException,
+)
 from labyrinth_game.inventory import add_item_to_inventory
-from labyrinth_game.item_use_handlers import (USE_ITEMS_HANDLERS,
-                                              UseItemHandlerType)
+from labyrinth_game.item_use_handlers import (
+    USE_ITEMS_HANDLERS,
+    UseItemHandlerType,
+)
 from labyrinth_game.rooms_functional import describe_current_room
-from labyrinth_game.schemas.game_state import (GameState, get_next_room,
-                                               get_room)
+from labyrinth_game.schemas.game_state import (
+    GameState,
+    get_next_room,
+    get_room,
+)
 from labyrinth_game.schemas.room import RoomSchema
 from labyrinth_game.solve_puzzle import solve_puzzle
 
