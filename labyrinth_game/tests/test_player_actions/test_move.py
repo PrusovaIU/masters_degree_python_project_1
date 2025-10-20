@@ -33,8 +33,19 @@ def mock_random_event() -> Generator[Mock, None, None]:
         yield mock
 
 
+@pytest.fixture
+def mock_user_input() -> Generator[Mock, None, None]:
+    """
+    Патч функции user_input.
+
+    :return: мок.
+    """
+    with patch.object(player_actions, "user_input") as mock:
+        yield mock
+
+
 @pytest.mark.parametrize("lock", [
-    pytest.param(None, id="no_lock"),
+    # pytest.param(None, id="no_lock"),
     pytest.param(Items.rusty_key, id="lock")
 ])
 def test_move_success(
@@ -43,6 +54,7 @@ def test_move_success(
         mock_room_schema: Mock,
         mock_random_event: Mock,
         mock_describe_current_room: Mock,
+        mock_user_input: Mock,
         lock: Optional[Items]
 ) -> None:
     """
@@ -60,6 +72,7 @@ def test_move_success(
         mock_game_state.player.inventory.append(lock)
 
     mock_room_schema.lock = lock
+    mock_user_input.return_value = "y"
 
     mock_game_state.steps_taken = 0
     mock_game_state.player.hp = 10

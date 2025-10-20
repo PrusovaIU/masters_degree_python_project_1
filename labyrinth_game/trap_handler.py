@@ -105,11 +105,13 @@ def _ghost_handler(game_state: GameState) -> None:
             "голос эхом раздался в голове.\n"
             "Поддавшись ужасу, вы бросились в бегство, не заботясь о "
             "направлении.")
+    current_room: RoomSchema = get_room(game_state)
     if lost_item:
         info += f"\n\tПока Вы бежали, из Вышей сумки выпало {lost_item.value}"
+        current_room.items.append(lost_item)
     rooms = [
-        room for room in Rooms
-        if room != game_state.current_room and not ROOMS[room].lock
+        room for room in current_room.exits.values()
+        if not ROOMS[room].lock
     ]
     room_id: int = pseudo_random(time_ns(), len(rooms))
     game_state.current_room = rooms[room_id]

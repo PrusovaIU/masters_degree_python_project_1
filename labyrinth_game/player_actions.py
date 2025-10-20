@@ -20,6 +20,7 @@ from labyrinth_game.schemas.game_state import (
 )
 from labyrinth_game.schemas.room import RoomSchema
 from labyrinth_game.solve_puzzle import solve_puzzle
+from labyrinth_game.utils import user_input
 
 
 def show_inventory(game_state: GameState) -> None:
@@ -40,6 +41,30 @@ def show_inventory(game_state: GameState) -> None:
         print("Инвентарь пуст")
 
 
+def _check_move_to_room(next_room: RoomSchema, game_state: GameState) -> bool:
+    """
+    Функция для проверки возможности перемещения игрока в следующую комнату.
+
+    :param next_room: следующая комната.
+    :param game_state: текущее состояние игры.
+    :return:
+    """
+    result = False
+    if next_room.lock is None:
+        result = True
+    elif next_room.lock in game_state.player.inventory:
+        promt = (f"Дверь заперта, но в вашем инвентаре есть "
+                 f"ключ {next_room.lock.value}. Открыть дверь? (y/n): ")
+        open_lock: str = user_input(promt, ["y", "n"])
+        if open_lock == "y":
+            game_state.player.inventory.remove(next_room.lock)
+            next_room.lock = None
+
+            result =  True
+    return result
+
+
+
 def move(
         game_state: GameState,
         direction_name: str
@@ -58,8 +83,7 @@ def move(
     except GetNextRoomException as err:
         print(err)
     else:
-        if (next_room.lock is None
-                or next_room.lock in game_state.player.inventory):
+        if _check_move_to_room(next_room, game_state):
             game_state.current_room = next_room_name
             game_state.steps_taken += 1
             random_event(game_state)
