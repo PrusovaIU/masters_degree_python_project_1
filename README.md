@@ -65,4 +65,4 @@ make project
 Эти команды запустят главный файл игры, и вы окажетесь внутри текстового мира 
 "Лабиринта сокровищ". Приятной игры!
 
-Пример игры: https://asciinema.org/a/zFmaFMy3B84C5SAuvLiT9ohTn
+[![asciicast](https://asciinema.org/a/zFmaFMy3B84C5SAuvLiT9ohTn.svg)](https://asciinema.org/a/zFmaFMy3B84C5SAuvLiT9ohTn)
