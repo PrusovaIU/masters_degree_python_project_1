@@ -1,16 +1,8 @@
 import pytest
 from labyrinth_game import environment_actions
-from labyrinth_game.schemas.game_state import GameState, Player
 from labyrinth_game.constants.item import Items
-from labyrinth_game.constants.trap import Traps
 from unittest.mock import MagicMock, patch, Mock
 from collections.abc import Generator
-
-
-@pytest.fixture
-def mock_get_room() -> Generator[Mock, None, None]:
-    with patch.object(environment_actions, "get_room") as mock_get_room:
-        yield mock_get_room
 
 
 def test_trap_with_torch_in_inventory_does_nothing(

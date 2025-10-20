@@ -15,3 +15,9 @@ def mock_trigger_trap() -> Generator[Mock, None, None]:
     """
     with patch.object(environment_actions, "trigger_trap") as mock:
         yield mock
+
+
+@pytest.fixture
+def mock_get_room() -> Generator[Mock, None, None]:
+    with patch.object(environment_actions, "get_room") as mock_get_room:
+        yield mock_get_room
