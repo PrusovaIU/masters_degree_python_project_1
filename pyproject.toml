@@ -12,6 +12,7 @@ python = "^3.10"
 isort = "^6.1.0"
 ruff = "^0.14.0"
 pytest = "^8.4.2"
+asciinema = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,11 +1,8 @@
 import pytest
 
 from labyrinth_game.constants.item import Items
-from labyrinth_game.inventory import (
-    BIG_ITEMS,
-    Inventory,
-    add_item_to_inventory,
-)
+from labyrinth_game.inventory import (BIG_ITEMS, Inventory,
+                                      add_item_to_inventory)
 
 
 @pytest.mark.parametrize("inventory", [

@@ -59,7 +59,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
             Directions.east: Rooms.hall,
             Directions.north: Rooms.armory
         },
-        items=[Items.ancient_book],
+        items=[Items.ancient_book, Items.old_key],
         puzzle=Puzzle(
             text='В одном свитке загадка: "Что растет, когда его съедают?" '
                  '(ответ одно слово)',
@@ -81,7 +81,10 @@ ROOMS: dict[Rooms, RoomSchema] = {
     Rooms.treasure_room: RoomSchema(
         description='Комната, на столе большой сундук. '
                     'Дверь заперта — нужен особый ключ.',
-        exits={Directions.south: Rooms.hall},
+        exits={
+            Directions.south: Rooms.hall,
+            Directions.north: Rooms.mirror_room
+        },
         items=[Items.treasure_chest],
         puzzle=Puzzle(
             text='Дверь защищена кодом. Введите код '
@@ -96,7 +99,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
         description='Стены этой комнаты покрыты зеркалами. '
                     'В центре — странный портал.',
         exits={
-            Directions.east: Rooms.treasure_room,
+            Directions.south: Rooms.treasure_room,
             Directions.west: Rooms.illusion_corridor
         },
         items=[Items.broken_mirror_piece],
@@ -140,7 +143,7 @@ ROOMS: dict[Rooms, RoomSchema] = {
             prize=None
         ),
         trap=True,
-        lock=Items.illusion_key
+        lock=Items.old_key
     ),
     Rooms.torture_chamber: RoomSchema(  # Исправлено с "torture_chamber"
         description='Пугающая пыточная комната. Здесь много железных '

@@ -12,6 +12,7 @@ class Items(Enum):
     broken_mirror_piece = "broken_mirror_piece"
     illusion_key = "illusion_key"
     old_chain = "old_chain"
+    old_key = "old_key"
     bloodied_key = "bloodied_key"
     iron_hook = "iron_hook"
     broken_shackles = "broken_shackles"
